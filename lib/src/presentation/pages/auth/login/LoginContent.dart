@@ -27,9 +27,9 @@ class LoginContent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _textLoginRotated(),
+              _textLoginRotated(context),
               SizedBox(height: 10),
-              _textRegisterRotated(),
+              _textRegisterRotated(context),
             ],
           ),
         ),
@@ -70,7 +70,7 @@ class LoginContent extends StatelessWidget {
                 SizedBox(height: 10),
                 _textSeparated(),
                 SizedBox(height: 10),
-                _textNotienesCuenta(),
+                _textNotienesCuenta(context),
                 SizedBox(height: 50),
               ],
             ),
@@ -109,7 +109,7 @@ class LoginContent extends StatelessWidget {
     );
   }
 
-  Widget _textLoginRotated() {
+  Widget _textLoginRotated(BuildContext context) {
     return RotatedBox(
       quarterTurns: 1,
       child: Text(
@@ -123,15 +123,18 @@ class LoginContent extends StatelessWidget {
     );
   }
 
-  Widget _textRegisterRotated() {
-    return RotatedBox(
-      quarterTurns: 1,
-      child: Text(
-        'Registro',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 27,
+  Widget _textRegisterRotated(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, 'register'),
+      child: RotatedBox(
+        quarterTurns: 1,
+        child: Text(
+          'Registro',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 27,
+          ),
         ),
       ),
     );
@@ -165,7 +168,7 @@ class LoginContent extends StatelessWidget {
     );
   }
 
-  Widget _textNotienesCuenta() {
+  Widget _textNotienesCuenta(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -174,12 +177,15 @@ class LoginContent extends StatelessWidget {
           style: TextStyle(color: Colors.grey[100], fontSize: 17),
         ),
         SizedBox(width: 7),
-        Text(
-          'Registrate',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
+        GestureDetector(
+          onTap: () => Navigator.pushNamed(context, 'register'),
+          child: Text(
+            'Registrate',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],

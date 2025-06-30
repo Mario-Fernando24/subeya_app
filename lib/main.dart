@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:subeya/src/presentation/pages/auth/login/LoginPage.dart';
+import 'package:subeya/src/presentation/pages/auth/register/RegisterPage.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,11 +10,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'taxi subeya',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurpleAccent)
       ),
-      home: LoginPage(),
+      initialRoute: 'login',
+      routes: {
+        'login': (BuildContext context) =>LoginPage(),
+        'register': (BuildContext context) =>RegisterPage(),
+      },
     );
   }
 }
