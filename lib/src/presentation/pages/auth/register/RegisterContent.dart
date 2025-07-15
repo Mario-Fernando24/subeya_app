@@ -124,17 +124,14 @@ class _RegisterContentState extends State<RegisterContent> {
   }
 
   Widget _textRegisterRotated(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, 'register'),
-      child: RotatedBox(
-        quarterTurns: 1,
-        child: Text(
-          'Registro',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 27,
-          ),
+    return RotatedBox(
+      quarterTurns: 1,
+      child: Text(
+        'Registro',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 27,
         ),
       ),
     );

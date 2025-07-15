@@ -28,8 +28,10 @@ class LoginContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _textLoginRotated(context),
-              SizedBox(height: 10),
+              SizedBox(height: 100),
               _textRegisterRotated(context),
+              SizedBox(height: MediaQuery.of(context).size.height*0.25),
+
             ],
           ),
         ),
