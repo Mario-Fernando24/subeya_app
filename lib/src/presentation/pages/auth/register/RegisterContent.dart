@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:subeya/src/presentation/widgets/DefaultButton.dart';
+import 'package:subeya/src/presentation/widgets/DefaultTextField.dart';
 
 class RegisterContent extends StatefulWidget {
   const RegisterContent({super.key});
@@ -55,21 +57,67 @@ class _RegisterContentState extends State<RegisterContent> {
               ]
              ),
           ),
-          child: _imageBanner(),
+          child: Column(
+            children:[
+            _imageBanner(),
+            DefaultTextField(
+              text: 'Nombre', 
+              icon: Icons.person_outline,
+              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+
+              ),
+              DefaultTextField(
+              text: 'Apellido', 
+              icon: Icons.person_outline,
+              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+              ),
+              DefaultTextField(
+              text: 'Email', 
+              icon: Icons.email_outlined,
+              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+              ),
+              DefaultTextField(
+              text: 'Telefono', 
+              icon: Icons.phone_outlined,
+              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+              ),
+              DefaultTextField(
+              text: 'Contraseña', 
+              icon: Icons.lock_outline,
+              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+              ),
+              DefaultTextField(
+              text: 'Confirmar contraseña', 
+              icon: Icons.lock_outline,
+              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+              ),
+
+              DefaultButton(
+                text: 'Crear usuario',
+                margin: EdgeInsets.only(top: 30, left: 60, right: 60),
+                ),
+                SizedBox(height: 5.0),
+                _separateOr(),
+                yaTengoCuenta()
+           ]
+          ),
         )
       ],
     );
   }
 
     Widget _textLoginRotated(BuildContext context) {
-    return RotatedBox(
-      quarterTurns: 1,
-      child: Text(
-        'Login',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 27,
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, 'login'),
+      child: RotatedBox(
+        quarterTurns: 1,
+        child: Text(
+          'Login',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 27,
+          ),
         ),
       ),
     );
@@ -97,10 +145,63 @@ class _RegisterContentState extends State<RegisterContent> {
       margin: EdgeInsets.only(top: 60),
       alignment: Alignment.center,
       child: Image.asset(
-        'assets/img/car_white.png',
-        width: 200,
-        height: 200,
+        'assets/img/delivery.png',
+        width: 180,
+        height: 180,
         ),
+    );
+  }
+
+  Widget _separateOr(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+         Container(
+          width: 25,
+          height: 1,
+          color: Colors.black,
+          margin: EdgeInsets.only(right: 5),
+         ),
+         Text('O',
+         style: TextStyle(
+          color: Colors.black,
+          fontSize: 17.0
+         ),
+        ),
+         Container(
+          width: 25,
+          height: 1,
+          color: Colors.black,
+          margin: EdgeInsets.only(left: 5),
+         )
+      ],
+    );
+  }
+
+  Widget yaTengoCuenta(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Ya tienes cuenta ?',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 16
+         ),
+        ),
+        SizedBox(height: 5.0,),
+        GestureDetector(
+          onTap: () => Navigator.pushNamed(context, 'login'),
+          child: Text(
+            ' Inicia sesión',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 16
+           ),
+          ),
+        )
+      ],
     );
   }
 }
