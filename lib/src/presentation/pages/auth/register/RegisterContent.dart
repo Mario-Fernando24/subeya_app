@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:subeya/src/presentation/widgets/DefaultButton.dart';
-import 'package:subeya/src/presentation/widgets/DefaultTextField.dart';
+import 'package:subeya/src/presentation/widgets/DefaultTextFieldOutlined.dart';
 
 class RegisterContent extends StatefulWidget {
   const RegisterContent({super.key});
@@ -57,54 +57,73 @@ class _RegisterContentState extends State<RegisterContent> {
               ]
              ),
           ),
-          child: Column(
-            children:[
-            _imageBanner(),
-            DefaultTextField(
-              text: 'Nombre', 
-              icon: Icons.person_outline,
-              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
-
-              ),
-              DefaultTextField(
-              text: 'Apellido', 
-              icon: Icons.person_outline,
-              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
-              ),
-              DefaultTextField(
-              text: 'Email', 
-              icon: Icons.email_outlined,
-              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
-              ),
-              DefaultTextField(
-              text: 'Telefono', 
-              icon: Icons.phone_outlined,
-              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
-              ),
-              DefaultTextField(
-              text: 'Contraseña', 
-              icon: Icons.lock_outline,
-              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
-              ),
-              DefaultTextField(
-              text: 'Confirmar contraseña', 
-              icon: Icons.lock_outline,
-              margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
-              ),
-
-              DefaultButton(
-                text: 'Crear usuario',
-                margin: EdgeInsets.only(top: 30, left: 60, right: 60),
+          child: Stack(
+            children: [
+              imageBackground(context),
+              SingleChildScrollView(
+                child: Column(
+                  children:[
+                  _imageBanner(),
+                  DefaultTextFieldOutlined(
+                    text: 'Nombre', 
+                    icon: Icons.person_outline,
+                    margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+                
+                    ),
+                    DefaultTextFieldOutlined(
+                    text: 'Apellido', 
+                    icon: Icons.person_outline,
+                    margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+                    ),
+                    DefaultTextFieldOutlined(
+                    text: 'Email', 
+                    icon: Icons.email_outlined,
+                    margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+                    ),
+                    DefaultTextFieldOutlined(
+                    text: 'Telefono', 
+                    icon: Icons.phone_outlined,
+                    margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+                    ),
+                    DefaultTextFieldOutlined(
+                    text: 'Contraseña', 
+                    icon: Icons.lock_outline,
+                    margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+                    ),
+                    DefaultTextFieldOutlined(
+                    text: 'Confirmar contraseña', 
+                    icon: Icons.lock_outline,
+                    margin: EdgeInsets.only(left: 30, right: 30.0, top: 15),
+                    ),
+                
+                    DefaultButton(
+                      text: 'Crear usuario',
+                      margin: EdgeInsets.only(top: 30, left: 60, right: 60),
+                      ),
+                      SizedBox(height: 5.0),
+                      _separateOr(),
+                      yaTengoCuenta()
+                 ]
                 ),
-                SizedBox(height: 5.0),
-                _separateOr(),
-                yaTengoCuenta()
-           ]
+              ),
+            ],
           ),
-        )
+        ),
       ],
     );
   }
+
+
+    Widget imageBackground(BuildContext context){
+      return Container(
+        alignment: Alignment.bottomCenter,
+        margin: EdgeInsets.only(top: 300),
+        width: MediaQuery.of(context).size.width*0.6,
+        height: MediaQuery.of(context).size.height*0.4,
+        child: Image.asset('assets/img/destination.png',
+        opacity: AlwaysStoppedAnimation(0.1),),
+      );
+    }
 
     Widget _textLoginRotated(BuildContext context) {
     return GestureDetector(
