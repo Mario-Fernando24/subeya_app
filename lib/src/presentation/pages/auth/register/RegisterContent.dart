@@ -98,6 +98,7 @@ class _RegisterContentState extends State<RegisterContent> {
                 
                     DefaultButton(
                       text: 'Crear usuario',
+                      onPressed: (){},
                       margin: EdgeInsets.only(top: 30, left: 60, right: 60),
                       ),
                       SizedBox(height: 5.0),

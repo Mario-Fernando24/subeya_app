@@ -4,11 +4,13 @@ class DefaultTextField extends StatelessWidget {
 
 
   String text;
+  Function(String text) onChanged;
   IconData icon;
   EdgeInsetsGeometry margin;
 
   DefaultTextField({
     required this.text,
+    required this.onChanged,
     required this.icon,
     this.margin = const EdgeInsets.only(top: 20, right: 16, left: 16),
   });
@@ -26,6 +28,9 @@ class DefaultTextField extends StatelessWidget {
         ),
       ),
       child: TextField(
+        onChanged: (txt){
+          onChanged(txt);
+        },
         decoration: InputDecoration(
           label: Text(text),
           border: InputBorder.none,

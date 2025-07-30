@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:subeya/src/presentation/pages/auth/login/LoginContent.dart';
+import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginState.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,10 +12,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  LoginBloc? _loginBloc;
+
   @override
   Widget build(BuildContext context) {
+    _loginBloc = BlocProvider.of<LoginBloc>(context);
     return Scaffold(
-      body: LoginContent(),
+      body: BlocBuilder<LoginBloc, LoginState>(
+        builder: (context, state) {
+          return LoginContent(_loginBloc);
+        },
+      ),
     );
   }
 }

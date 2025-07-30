@@ -1,87 +1,110 @@
 import 'package:flutter/material.dart';
+import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
+import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:subeya/src/presentation/widgets/DefaultButton.dart';
 import 'package:subeya/src/presentation/widgets/DefaultTextField.dart';
 
 class LoginContent extends StatelessWidget {
-  const LoginContent({super.key});
+
+  LoginBloc? bloc;
+
+   LoginContent(this.bloc);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.only(left: 15),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(255, 12, 38, 145),
-                Color.fromARGB(255, 34, 156, 249),
-              ],
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _textLoginRotated(context),
-              SizedBox(height: 100),
-              _textRegisterRotated(context),
-              SizedBox(height: MediaQuery.of(context).size.height*0.25),
-
-            ],
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 60, bottom: 60),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(255, 14, 29, 166),
-                Color.fromARGB(255, 30, 112, 227),
-              ],
-            ),
-            //color: Color.fromARGB(255, 24, 181, 254),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(35),
-              bottomLeft: Radius.circular(25),
-            ),
-          ),
-          child: Container(
-            margin: EdgeInsets.only(left: 15, right: 25),
+    return Form(
+      key: bloc?.state.formkey,
+      child: Stack(
+        children: [
+          Container(
             height: MediaQuery.of(context).size.height,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 50),
-                  _textWelcome('Welcome'),
-                  _textWelcome('Back...'),
-                  _imageCar(),
-                  _textLogin(),
-                  DefaultTextField(text: 'Correo', icon: Icons.email_outlined),
-                  DefaultTextField(
-                    text: 'Contraseña',
-                    icon: Icons.lock_open_outlined,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height*0.2),
-                  DefaultButton(text: 'Iniciar sesión'),
-                  SizedBox(height: 10),
-                  _textSeparated(),
-                  SizedBox(height: 10),
-                  _textNotienesCuenta(context),
-                  SizedBox(height: 50),
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 15),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromARGB(255, 12, 38, 145),
+                  Color.fromARGB(255, 34, 156, 249),
                 ],
               ),
             ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _textLoginRotated(context),
+                SizedBox(height: 100),
+                _textRegisterRotated(context),
+                SizedBox(height: MediaQuery.of(context).size.height*0.25),
+      
+              ],
+            ),
           ),
-        ),
-      ],
+          Container(
+            margin: EdgeInsets.only(left: 60, bottom: 60),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromARGB(255, 14, 29, 166),
+                  Color.fromARGB(255, 30, 112, 227),
+                ],
+              ),
+              //color: Color.fromARGB(255, 24, 181, 254),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(35),
+                bottomLeft: Radius.circular(25),
+              ),
+            ),
+            child: Container(
+              margin: EdgeInsets.only(left: 15, right: 25),
+              height: MediaQuery.of(context).size.height,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 50),
+                    _textWelcome('Welcome'),
+                    _textWelcome('Back...'),
+                    _imageCar(),
+                    _textLogin(),
+                    DefaultTextField(
+                      onChanged:(text) => {
+                          bloc?.add(EmailChanged(email: text))
+                      },
+                      text: 'Correo',
+                       icon: Icons.email_outlined
+                       ),
+                    DefaultTextField(
+                       onChanged:(text) => {
+                          bloc?.add(PasswordChanged(password: text))
+
+                      },
+                      text: 'Contraseña',
+                      icon: Icons.lock_open_outlined,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height*0.2),
+                    DefaultButton(
+                      onPressed: (){
+                        bloc?.add(FormSubmit());
+                      },
+                      text: 'Iniciar sesión'
+                      ),
+                    SizedBox(height: 10),
+                    _textSeparated(),
+                    SizedBox(height: 10),
+                    _textNotienesCuenta(context),
+                    SizedBox(height: 50),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
