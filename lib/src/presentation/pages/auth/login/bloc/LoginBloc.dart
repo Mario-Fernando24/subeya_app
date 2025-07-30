@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:subeya/src/presentation/utils/blocFormItem.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
@@ -14,22 +15,28 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     
     on<EmailChanged>((event, emit) {
         emit(state.copyWith(
-          email: event.email,
+          email: BlocFormItem(
+            value: event.email.value,
+            error: event.email.value.isEmpty ? 'Ingresa el email': null
+          ),
           formkey: formKey
         ));
     });
 
      on<PasswordChanged>((event, emit) {
         emit(state.copyWith(
-          password: event.password,
+          password: BlocFormItem(
+            value: event.password.value,
+            error: event.password.value.isEmpty ?  'Ingresa una contraseña': event.password.value.length<6?'Minimo 6 caracteres': null
+          ),
           formkey: formKey
 
         ));
     });
 
     on<FormSubmit>((event, emit) {
-      print('Email: ${state.email}');
-      print('Password: ${state.password}');
+      print('Email: ${state.email.value}');
+      print('Password: ${state.password.value}');
     });
 
    }

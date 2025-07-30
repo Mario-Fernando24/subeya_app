@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
+import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginState.dart';
+import 'package:subeya/src/presentation/utils/blocFormItem.dart';
 import 'package:subeya/src/presentation/widgets/DefaultButton.dart';
 import 'package:subeya/src/presentation/widgets/DefaultTextField.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginContent extends StatelessWidget {
 
-  LoginBloc? bloc;
+  LoginState? state;
 
-   LoginContent(this.bloc);
+   LoginContent(this.state);
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: bloc?.state.formkey,
+      key: state!.formkey,
       child: Stack(
         children: [
           Container(
@@ -73,23 +76,36 @@ class LoginContent extends StatelessWidget {
                     _textLogin(),
                     DefaultTextField(
                       onChanged:(text) => {
-                          bloc?.add(EmailChanged(email: text))
+                      context.read<LoginBloc>().add(EmailChanged(email: BlocFormItem(value: text)))
                       },
                       text: 'Correo',
-                       icon: Icons.email_outlined
+                       icon: Icons.email_outlined,
+                        validate: (value){
+                        return context.read<LoginBloc>().state.email.error;
+                      },
                        ),
                     DefaultTextField(
                        onChanged:(text) => {
-                          bloc?.add(PasswordChanged(password: text))
-
+                          context.read<LoginBloc>().add(PasswordChanged(password: BlocFormItem(value: text)))
                       },
                       text: 'Contraseña',
                       icon: Icons.lock_open_outlined,
+                      validate: (value){
+                        return context.read<LoginBloc>().state.password.error;
+                      },
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height*0.2),
                     DefaultButton(
                       onPressed: (){
-                        bloc?.add(FormSubmit());
+                        if(state!.formkey!.currentState!.validate()){
+                        context.read<LoginBloc>().add(FormSubmit());
+
+                        }else{
+                          print("mario fernando##########################################");
+                          print("El formulario no es valido");
+                          print("mario fernando##########################################");
+
+                        }
                       },
                       text: 'Iniciar sesión'
                       ),
