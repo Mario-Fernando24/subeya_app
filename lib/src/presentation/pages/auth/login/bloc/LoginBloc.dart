@@ -21,7 +21,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
      on<PasswordChanged>((event, emit) {
         emit(state.copyWith(
-          password: event.password
+          password: event.password,
+          formkey: formKey
+
         ));
     });
 

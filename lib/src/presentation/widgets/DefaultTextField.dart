@@ -28,8 +28,8 @@ class DefaultTextField extends StatelessWidget {
         ),
       ),
       child: TextField(
-        onChanged: (txt){
-          onChanged(txt);
+        onChanged: (texto){
+          onChanged(texto);
         },
         decoration: InputDecoration(
           label: Text(text),
