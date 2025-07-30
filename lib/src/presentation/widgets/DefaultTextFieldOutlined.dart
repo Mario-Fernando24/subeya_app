@@ -19,11 +19,11 @@ class DefaultTextFieldOutlined extends StatelessWidget {
       height: 45,
       margin: margin,
       decoration: BoxDecoration(
-        color: const Color.fromRGBO(255, 255, 255, 0.2),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15),
-          bottomRight: Radius.circular(15),
-        ),
+        // color: const Color.fromRGBO(255, 255, 255, 0.2),
+        // borderRadius: BorderRadius.only(
+        //   topLeft: Radius.circular(15),
+        //   bottomRight: Radius.circular(15),
+        // ),
       ),
       child: TextField(
         decoration: InputDecoration(

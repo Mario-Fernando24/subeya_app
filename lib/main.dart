@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:subeya/src/presentation/pages/auth/login/LoginPage.dart';
 import 'package:subeya/src/presentation/pages/auth/register/RegisterPage.dart';
 
-void main() => runApp(const MyApp());
+void main(){
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
