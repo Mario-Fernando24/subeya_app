@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:subeya/blocProviders.dart';
 import 'package:subeya/src/presentation/pages/auth/login/LoginPage.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
@@ -15,8 +16,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginBloc()..add(LoginInitEvent()),
+    return MultiBlocProvider(
+      providers: blocProviders,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'taxi subeya',

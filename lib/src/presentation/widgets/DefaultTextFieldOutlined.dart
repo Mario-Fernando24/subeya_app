@@ -6,11 +6,17 @@ class DefaultTextFieldOutlined extends StatelessWidget {
   String text;
   IconData icon;
   EdgeInsetsGeometry margin;
+  Function(String text) onChanged;
+  String? Function(String?)? validate;
+
 
   DefaultTextFieldOutlined({
     required this.text,
     required this.icon,
     this.margin = const EdgeInsets.only(top: 20, right: 16, left: 16),
+    required this.onChanged,
+    this.validate
+
   });
 
   @override
@@ -25,7 +31,15 @@ class DefaultTextFieldOutlined extends StatelessWidget {
         //   bottomRight: Radius.circular(15),
         // ),
       ),
-      child: TextField(
+      child: TextFormField(
+        onChanged: (texto){
+          
+          print("******************************");
+          print(texto);
+          print("******************************");
+          onChanged(texto);
+        },
+        validator: validate,
         decoration: InputDecoration(
           label: Text(text),
           //border: InputBorder.none,

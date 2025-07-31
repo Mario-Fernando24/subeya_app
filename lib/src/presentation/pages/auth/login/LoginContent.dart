@@ -7,6 +7,7 @@ import 'package:subeya/src/presentation/widgets/DefaultButton.dart';
 import 'package:subeya/src/presentation/widgets/DefaultTextField.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class LoginContent extends StatelessWidget {
 
   LoginState? state;
