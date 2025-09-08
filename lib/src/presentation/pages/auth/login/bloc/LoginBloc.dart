@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:subeya/src/data/dataSource/remote/services/AuthServices.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:subeya/src/presentation/utils/blocFormItem.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
    final formKey = GlobalKey<FormState>();
+   Authservices authservices  = Authservices();
   
    LoginBloc(): super(LoginState()){
     on<LoginInitEvent>((event, emit) {
@@ -27,16 +29,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(state.copyWith(
           password: BlocFormItem(
             value: event.password.value,
-            error: event.password.value.isEmpty ?  'Ingresa una contraseña': event.password.value.length<6?'Minimo 6 caracteres': null
+            error: event.password.value.isEmpty ?  'Ingresa una contraseña': event.password.value.length<4?'Minimo 4 caracteres': null
           ),
           formkey: formKey
 
         ));
     });
 
-    on<FormSubmit>((event, emit) {
+    on<FormSubmit>((event, emit) async {
       print('Email: ${state.email.value}');
       print('Password: ${state.password.value}');
+      await  authservices.login(state.email.value, state.password.value);
+
     });
 
    }

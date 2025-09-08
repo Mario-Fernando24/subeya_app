@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subeya/src/presentation/utils/blocFormItem.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  final formKey = GlobalKey<FormState>();
+  final formkeRegister = GlobalKey<FormState>();
 
   RegisterBloc() : super(RegisterState()) {
 
     on<RegisterInitEvent>((event, emit) {
-      emit(state.copyWith(formkeY: formKey));
+      emit(state.copyWith(formkeRegister: formkeRegister));
     });
 
      on<NameChangedTextField>((event, emit) {
@@ -19,7 +19,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             value: event.name.value,
             error: event.name.value.isEmpty ? 'Ingresa nombre completo': null
           ),
-          formkeY: formKey
+          formkeRegister: formkeRegister
         ));
     });
 
@@ -29,7 +29,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             value: event.lastname.value,
             error: event.lastname.value.isEmpty ? 'Ingresa apellido completo': null
           ),
-          formkeY: formKey
+          formkeRegister: formkeRegister
         ));
     });
 
@@ -43,7 +43,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             'Mas de 6 caracteres': null
           ),
 
-          formkeY: formKey
+          formkeRegister: formkeRegister
         ));
     });
 
@@ -53,7 +53,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             value: event.phone.value,
             error: event.phone.value.isEmpty ? 'Ingrese el telefono': event.phone.value.length<10? 'El numero de telefono debe ser de 10 digitos' : null
           ),
-          formkeY: formKey
+          formkeRegister: formkeRegister
         ));
     });
 
@@ -63,7 +63,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             value: event.password.value,
             error: event.password.value.isEmpty ? 'Contraseño no puede estar vacia': null
           ),
-          formkeY: formKey
+          formkeRegister: formkeRegister
         ));
     });
 
@@ -80,7 +80,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             ?  'Las contraseñas no coinciden'
             : null
           ),
-          formkeY: formKey
+          formkeRegister: formkeRegister
         ));
     });
 

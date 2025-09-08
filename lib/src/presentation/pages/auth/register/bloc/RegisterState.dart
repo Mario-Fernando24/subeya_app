@@ -11,7 +11,7 @@ class RegisterState extends Equatable{
   final BlocFormItem phone;
   final BlocFormItem password;
   final BlocFormItem confirmPassword;
-  final GlobalKey<FormState>? formkeY;
+  final GlobalKey<FormState>? formkeRegister;
 
   const RegisterState({
         this.name = const BlocFormItem(error: 'Ingresa el nombre'),
@@ -20,7 +20,7 @@ class RegisterState extends Equatable{
         this.phone = const BlocFormItem(error: 'Ingrese el telefono'),
         this.password = const BlocFormItem(error: 'Ingresa la contraseña'),
         this.confirmPassword = const BlocFormItem(error: 'Confirma la contraseña'),
-        this.formkeY
+        this.formkeRegister
   });
 
     RegisterState copyWith({
@@ -30,7 +30,7 @@ class RegisterState extends Equatable{
      BlocFormItem? phone,
      BlocFormItem? password,
      BlocFormItem? confirmPassword,
-     GlobalKey<FormState>? formkeY,
+     GlobalKey<FormState>? formkeRegister,
   }){
      return RegisterState(
       name: name ?? this.name,
@@ -39,7 +39,7 @@ class RegisterState extends Equatable{
       phone: phone ?? this.phone,
       password: password ?? this.password,
       confirmPassword: confirmPassword ?? this.confirmPassword,
-      formkeY: formkeY
+      formkeRegister: formkeRegister
      );
   }
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:subeya/blocProviders.dart';
 import 'package:subeya/src/presentation/pages/auth/login/LoginPage.dart';
-import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
-import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:subeya/src/presentation/pages/auth/register/RegisterPage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

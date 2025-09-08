@@ -17,7 +17,7 @@ class RegisterContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: state!.formkeY,
+      key: state!.formkeRegister,
       child: Stack(
         children: [
           Container(
@@ -145,7 +145,7 @@ class RegisterContent extends StatelessWidget {
                   
                     DefaultButton(
                         onPressed: (){
-                          if(state!.formkeY!.currentState!.validate()){
+                          if(state!.formkeRegister!.currentState!.validate()){
                               context.read<RegisterBloc>().add(FormRegisterSubmit());
                               context.read<RegisterBloc>().add(FormResetSubmit());
                           }
@@ -179,7 +179,7 @@ class RegisterContent extends StatelessWidget {
 
     Widget _textLoginRotated(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, 'login'),
+      onTap: () => Navigator.pop(context),
       child: RotatedBox(
         quarterTurns: 1,
         child: Text(
@@ -259,7 +259,7 @@ class RegisterContent extends StatelessWidget {
         ),
         SizedBox(height: 5.0,),
         GestureDetector(
-          onTap: () => Navigator.pushNamed(context, 'login'),
+          onTap: () => Navigator.pop(context),
           child: Text(
             ' Inicia sesión',
           style: TextStyle(
