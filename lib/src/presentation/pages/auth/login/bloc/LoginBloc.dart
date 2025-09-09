@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:subeya/src/data/dataSource/remote/services/AuthServices.dart';
+import 'package:subeya/src/domain/useCases/auth/LoginUseCase.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginState.dart';
@@ -7,8 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subeya/src/presentation/utils/blocFormItem.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  
   final formKey = GlobalKey<FormState>();
-  Authservices authservices = Authservices();
+  LoginUseCase loginUseCase = LoginUseCase();
 
   LoginBloc() : super(LoginState()) {
     on<LoginInitEvent>((event, emit) {
@@ -47,7 +48,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<FormSubmit>((event, emit) async {
       emit(state.copyWith(response: Loading(), formkey: formKey));
 
-      Resource response = await authservices.login(
+      Resource response = await loginUseCase.run(
         state.email.value,
         state.password.value,
       );

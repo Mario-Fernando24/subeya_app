@@ -7,6 +7,9 @@ import 'package:subeya/src/domain/utils/Resource.dart';
 
 class Authservices {
   Future<Resource<AuthResponse>> login(String email, String password) async {
+
+    print("PETICION A: ${Apiconfig.baseUrl}/auth/login");
+  
     try {
       Dio dio = Dio();
       // URL de tu API
