@@ -1,5 +1,5 @@
 import 'package:subeya/src/domain/models/rol_model.dart';
-
+//https://app.quicktype.io/
 class User {
     int ?id;
     String ?name;

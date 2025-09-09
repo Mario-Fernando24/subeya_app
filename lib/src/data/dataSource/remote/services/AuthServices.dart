@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:subeya/src/data/api/ApiConfig.dart';
 import 'package:subeya/src/domain/models/auth_response.dart';
+import 'package:subeya/src/domain/utils/Resource.dart';
 
 class Authservices {
-  Future<AuthResponse?> login(String email, String password) async {
+  Future<Resource<AuthResponse>> login(String email, String password) async {
     try {
       Dio dio = Dio();
       // URL de tu API
@@ -17,22 +18,25 @@ class Authservices {
       // Petición POST
       final response = await dio.post(url, data: json.encode(body));
 
-      AuthResponse authResponse = AuthResponse.fromJson(response.data);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        AuthResponse authResponse = AuthResponse.fromJson(response.data);
+        print("===============================================");
+        print(authResponse.user?.toJson());
+        print(authResponse.accessToken);
+        print("===============================================");
 
-      print("===============================================");
-      print(authResponse.user?.toJson());
-      print(authResponse.accessToken);
-      print("===============================================");
-
-      return authResponse;
+        return Success(authResponse);
+      } else {
+        return ErrorData("Error en la autenticación: ${response.data['message']}");
+      }
     } catch (e) {
       if (e is DioException) {
         final message = e.response?.data['message'] ?? 'Error desconocido';
         print(message);
-        return null;
+        return ErrorData(message);
       } else {
         print("Otro error: $e");
-        return null;
+        return ErrorData(e.toString());
       }
     }
   }
