@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:subeya/injection.dart';
+import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterBloc.dart';
@@ -6,7 +8,7 @@ import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterEvent.d
 
 List<BlocProvider> blocProviders = [
    
-   BlocProvider<LoginBloc>(create: (context) => LoginBloc()..add(LoginInitEvent())),
+   BlocProvider<LoginBloc>(create: (context) => LoginBloc(locator<Authusecases>())..add(LoginInitEvent())),
    BlocProvider<RegisterBloc>(create: (context) => RegisterBloc()..add(RegisterInitEvent())),
 
 ];

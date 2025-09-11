@@ -5,7 +5,9 @@ import 'package:subeya/src/domain/utils/Resource.dart';
 
 class Authrepositoryimp implements  Authrepository {
    
-  Authservices authservices = Authservices();
+  Authservices authservices;
+
+  Authrepositoryimp(this.authservices);
 
   @override
   Future<Resource<AuthResponse>> login(String email, String password) {

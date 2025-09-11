@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:subeya/blocProviders.dart';
+import 'package:subeya/injection.dart';
 import 'package:subeya/src/presentation/pages/auth/login/LoginPage.dart';
 import 'package:subeya/src/presentation/pages/auth/register/RegisterPage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
   runApp(const MyApp());
 }
 
