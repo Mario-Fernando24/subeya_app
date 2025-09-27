@@ -9,6 +9,6 @@ import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterEvent.d
 List<BlocProvider> blocProviders = [
    
    BlocProvider<LoginBloc>(create: (context) => LoginBloc(locator<Authusecases>())..add(LoginInitEvent())),
-   BlocProvider<RegisterBloc>(create: (context) => RegisterBloc()..add(RegisterInitEvent())),
+   BlocProvider<RegisterBloc>(create: (context) => RegisterBloc(locator<Authusecases>())..add(RegisterInitEvent())),
 
 ];

@@ -2,21 +2,23 @@ import 'package:subeya/src/domain/models/rol_model.dart';
 //https://app.quicktype.io/
 class User {
     int ?id;
-    String ?name;
-    String ?lastname;
-    String ?email;
-    String ?phone;
+    String name;
+    String lastname;
+    String email;
+    String phone;
+    String ?password;
     dynamic ?image;
     dynamic ?notificationToken;
     List<Role> ?roles;
 
     User({
         this.id,
-        this.name,
-        this.lastname,
-        this.email,
-        this.phone,
+        required this.name,
+        required this.lastname,
+        required this.email,
+        required this.phone,
         this.image,
+        this.password,
         this.notificationToken,
         this.roles,
     });
@@ -27,6 +29,7 @@ class User {
         lastname: json["lastname"],
         email: json["email"],
         phone: json["phone"],
+        password: json["password"],
         image: json["image"],
         notificationToken: json["notification_token"],
         // valida si roles no es null antes de mapear
@@ -39,6 +42,7 @@ class User {
         "lastname": lastname,
         "email": email,
         "phone": phone,
+        "password": password,
         "image": image,
         "notification_token": notificationToken,
         "roles": roles!=null?  List<dynamic>.from(roles!.map((x) => x.toJson())): [],

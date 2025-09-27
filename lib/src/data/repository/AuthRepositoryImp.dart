@@ -1,5 +1,6 @@
 import 'package:subeya/src/data/dataSource/remote/services/AuthServices.dart';
 import 'package:subeya/src/domain/models/auth_response.dart';
+import 'package:subeya/src/domain/models/user_model.dart';
 import 'package:subeya/src/domain/repository/AuthRepository.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 
@@ -12,6 +13,11 @@ class Authrepositoryimp implements  Authrepository {
   @override
   Future<Resource<AuthResponse>> login(String email, String password) {
     return authservices.login(email, password);
+  }
+
+  @override
+  Future<Resource<AuthResponse>> register(User user) {
+    return authservices.register(user);
   }
 
 }

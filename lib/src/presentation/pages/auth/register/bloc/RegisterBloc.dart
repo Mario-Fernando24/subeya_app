@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
+import 'package:subeya/src/domain/utils/Resource.dart';
 import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterEvent.dart';
 import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subeya/src/presentation/utils/blocFormItem.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
+
+  Authusecases authusecases;
+  
   final formkeRegister = GlobalKey<FormState>();
 
-  RegisterBloc() : super(RegisterState()) {
+  RegisterBloc(this.authusecases) : super(RegisterState()) {
 
     on<RegisterInitEvent>((event, emit) {
       emit(state.copyWith(formkeRegister: formkeRegister));
@@ -86,7 +91,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
 
 
-    on<FormRegisterSubmit>((event, emit) {
+    on<FormRegisterSubmit>((event, emit) async {
       print('Nombre: ${state.name.value}');
       print('Apellido: ${state.lastname.value}');
       print('Email: ${state.email.value}');
@@ -94,7 +99,17 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       print('Password: ${state.password.value}');
       print('Confirmar: ${state.confirmPassword.value}');
 
+
+     //primer emitimos el estado de carga
+      emit(state.copyWith(response: Loading(), formkeRegister: formkeRegister));
+
+     // luego llamamos al caso de uso para la peticion
+      Resource response = await authusecases.registerUseCase.run(state.toUser());
+
+      emit(state.copyWith(response: response, formkeRegister: formkeRegister));
     });
+
+    
 
     on<FormResetSubmit>((event, emit) {
       print('reseteando los campos');
