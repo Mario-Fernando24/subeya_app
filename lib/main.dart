@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:subeya/blocProviders.dart';
 import 'package:subeya/injection.dart';
 import 'package:subeya/src/presentation/pages/auth/login/LoginPage.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: blocProviders,
       child: MaterialApp(
+        builder: FToastBuilder(),
         debugShowCheckedModeBanner: false,
         title: 'taxi subeya',
         theme: ThemeData(

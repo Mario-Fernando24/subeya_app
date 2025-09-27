@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 import 'package:subeya/src/presentation/pages/auth/login/LoginContent.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
@@ -21,9 +22,15 @@ class _LoginPageState extends State<LoginPage> {
           final response = state.response;
           if(response is ErrorData){
             final message = response.message;
-            print("***************************************");
-            print('ERRORRRR'+message);
-            print("***************************************");
+
+            Fluttertoast.showToast(
+              msg: message,
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              textColor: Colors.white,
+              fontSize: 16.0
+            );
           }else  if(response is Success){
             print("***************************************");
             print('SUCCESS'+response.data.toString());
