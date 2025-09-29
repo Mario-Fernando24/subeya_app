@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
-import 'package:subeya/src/domain/useCases/auth/LoginUseCase.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginState.dart';
@@ -12,8 +12,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Authusecases authusecases;
   final formKey = GlobalKey<FormState>();
 
-  LoginBloc(this.authusecases) : super(LoginState()) {
-    on<LoginInitEvent>((event, emit) {
+  LoginBloc(this.authusecases) : super(LoginState())  {
+
+    on<LoginInitEvent>((event, emit) async {
+      
+      AuthResponse? response =  await authusecases.getUseSessionUseCase.run();
+
+      print(  "AuthResponse en session: ${response!.toJson()}");
+      
       emit(state.copyWith(formkey: formKey));
     });
 
@@ -44,6 +50,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           formkey: formKey,
         ),
       );
+    });
+    
+    //guardar la sesion del usuario
+    on<SaveUserSession>((event, emit) async {
+      await authusecases.saveUseSessionUseCase.run(event.authResponse);
     });
 
     on<FormSubmit>((event, emit) async {

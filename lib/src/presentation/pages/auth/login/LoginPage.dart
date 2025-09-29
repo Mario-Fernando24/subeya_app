@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 import 'package:subeya/src/presentation/pages/auth/login/LoginContent.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginState.dart';
 
 class LoginPage extends StatefulWidget {
@@ -35,6 +37,9 @@ class _LoginPageState extends State<LoginPage> {
             print("***************************************");
             print('SUCCESS'+response.data.toString());
             print("***************************************");
+            final authresponse = response.data as AuthResponse;
+             context.read<LoginBloc>().add(SaveUserSession(authResponse: authresponse));
+           
           }
         },
         child: BlocBuilder<LoginBloc, LoginState>(

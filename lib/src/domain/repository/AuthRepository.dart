@@ -6,5 +6,11 @@ abstract class Authrepository {
 
   Future<Resource<AuthResponse>> login(String email, String password);
   Future<Resource<AuthResponse>> register(User user);
-
+  //guardar en local el usuario y token
+  Future<void> saveUserSession(AuthResponse authResponse);
+  //obtener el usuario y token guardado en local
+  Future<AuthResponse?> getUserSession();
+  //eliminar el usuario y token guardado en local
+  Future<void> clearUserSession();
+  
 }
