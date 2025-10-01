@@ -1,3 +1,4 @@
+import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/presentation/utils/blocFormItem.dart';
 
 abstract class RegisterEvent {}
@@ -35,6 +36,13 @@ class ConfirmPasswordChangedTextField extends RegisterEvent{
 }
 
 class FormRegisterSubmit extends RegisterEvent{}
+
+class SaveUserSession extends RegisterEvent{
+    
+    final AuthResponse authResponse;
+    SaveUserSession({required this.authResponse});
+
+}
 
 class FormResetSubmit extends RegisterEvent{}
 

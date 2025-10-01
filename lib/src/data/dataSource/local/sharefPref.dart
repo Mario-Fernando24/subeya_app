@@ -26,4 +26,10 @@ class Sharefpref {
       return prefs.remove(key);
     }
 
+    //verificar si existe una clave en shared preferences
+    Future<bool> containsKey(String key) async {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.containsKey(key);
+    }
+
 }

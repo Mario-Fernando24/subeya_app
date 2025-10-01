@@ -109,7 +109,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       emit(state.copyWith(response: response, formkeRegister: formkeRegister));
     });
 
-    
+     //guardar la sesion del usuario
+    on<SaveUserSession>((event, emit) async {
+      await authusecases.saveUseSessionUseCase.run(event.authResponse);
+    });
+
+
+
 
     on<FormResetSubmit>((event, emit) {
       print('reseteando los campos');

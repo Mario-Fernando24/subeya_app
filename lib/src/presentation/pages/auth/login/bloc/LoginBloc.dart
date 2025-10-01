@@ -18,8 +18,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       
       AuthResponse? response =  await authusecases.getUseSessionUseCase.run();
 
-      print(  "AuthResponse en session: ${response!.toJson()}");
-      
+      print(  "AuthResponse en session Mario : ${response!.toJson()}");
+            print(  "AuthResponse en session Mario : ${response.user!.lastname}");
+
       emit(state.copyWith(formkey: formKey));
     });
 
