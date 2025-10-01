@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 import 'package:subeya/src/presentation/pages/auth/register/RegisterContent.dart';
 import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterBloc.dart';
@@ -25,7 +26,12 @@ class _RegisterPageState extends State<RegisterPage> {
           if(response is Success){
             
             context.read<RegisterBloc>().add(FormResetSubmit());
-            Navigator.pop(context);
+            print("***************************************");
+            print('SUCCESS REGISTRO'+response.data.toString());
+            print("***************************************");
+            final authresponse = response.data as AuthResponse;
+             context.read<RegisterBloc>().add(SaveUserSession(authResponse: authresponse));
+             Navigator.pushNamedAndRemoveUntil(context, 'client/home', (route) => false);
 
           }else if(response is ErrorData){
               Fluttertoast.showToast(

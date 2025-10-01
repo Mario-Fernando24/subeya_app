@@ -5,6 +5,7 @@ import 'package:subeya/injection.dart';
 import 'package:subeya/src/presentation/pages/auth/login/LoginPage.dart';
 import 'package:subeya/src/presentation/pages/auth/register/RegisterPage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:subeya/src/presentation/pages/client/home/ClientHomePage.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         routes: {
           'login': (BuildContext context) => LoginPage(),
           'register': (BuildContext context) => RegisterPage(),
+          'client/home': (BuildContext context) => Clienthomepage(),
         },
       ),
     );

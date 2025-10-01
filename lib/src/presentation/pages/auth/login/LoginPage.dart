@@ -39,6 +39,8 @@ class _LoginPageState extends State<LoginPage> {
             print("***************************************");
             final authresponse = response.data as AuthResponse;
              context.read<LoginBloc>().add(SaveUserSession(authResponse: authresponse));
+
+             Navigator.pushNamedAndRemoveUntil(context, 'client/home', (route) => false);
            
           }
         },

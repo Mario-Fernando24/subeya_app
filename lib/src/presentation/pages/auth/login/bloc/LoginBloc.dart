@@ -19,10 +19,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       AuthResponse? response =  await authusecases.getUseSessionUseCase.run();
 
       print(  "AuthResponse en session Mario : ${response!.toJson()}");
-            print(  "AuthResponse en session Mario : ${response.user!.lastname}");
+      if(response.accessToken != null){
+         print("Usuario ya tiene sesion iniciada");
+         emit(state.copyWith(response: Success(response), formkey: formKey));
+      }else{
+         print("No hay sesion iniciada"); 
 
       emit(state.copyWith(formkey: formKey));
-    });
+  }
+  });
+
 
     on<EmailChanged>((event, emit) {
       emit(

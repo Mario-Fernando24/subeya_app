@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterEvent.dart';
@@ -14,9 +15,21 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   RegisterBloc(this.authusecases) : super(RegisterState()) {
 
-    on<RegisterInitEvent>((event, emit) {
+ 
+     on<RegisterInitEvent>((event, emit) async {
+      
+      AuthResponse? response =  await authusecases.getUseSessionUseCase.run();
+
+      print(  "AuthResponse en session Mario : ${response!.toJson()}");
+      if(response.accessToken != null){
+         print("Usuario ya tiene sesion iniciada");
+         emit(state.copyWith(response: Success(response), formkeRegister: formkeRegister));
+      }else{
+         print("No hay sesion iniciada"); 
+
       emit(state.copyWith(formkeRegister: formkeRegister));
-    });
+    }
+  });
 
      on<NameChangedTextField>((event, emit) {
         emit(state.copyWith(
