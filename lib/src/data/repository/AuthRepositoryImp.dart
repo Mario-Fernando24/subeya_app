@@ -38,9 +38,8 @@ class Authrepositoryimp implements  Authrepository {
   }
   
   @override
-  Future<void> clearUserSession() {
-    // TODO: implement clearUserSession
-    throw UnimplementedError();
+  Future<bool> logout() async{
+     return  await sharefpref.remove('usuario');
   }
 
  

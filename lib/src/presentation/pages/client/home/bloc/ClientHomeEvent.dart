@@ -7,3 +7,5 @@ class ChangeDrawerIndex extends ClientHomeEvent{
   ChangeDrawerIndex({ required this.index});
 
 }
+
+class Logout extends ClientHomeEvent{}

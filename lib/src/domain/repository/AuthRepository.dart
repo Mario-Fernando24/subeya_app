@@ -11,6 +11,6 @@ abstract class Authrepository {
   //obtener el usuario y token guardado en local
   Future<AuthResponse?> getUserSession();
   //eliminar el usuario y token guardado en local
-  Future<void> clearUserSession();
+  Future<bool> logout();
   
 }

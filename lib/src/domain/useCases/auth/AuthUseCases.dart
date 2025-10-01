@@ -1,4 +1,5 @@
 // agregar todos los use cases de auth
+import 'package:subeya/src/domain/useCases/auth/ClearUseSessionUseCase.dart';
 import 'package:subeya/src/domain/useCases/auth/GetUseSessionUseCase.dart';
 import 'package:subeya/src/domain/useCases/auth/LoginUseCase.dart';
 import 'package:subeya/src/domain/useCases/auth/RegisterUseCases.dart';
@@ -10,12 +11,14 @@ class Authusecases {
   final Registerusecases registerUseCase;
   final SaveUseSessionUseCase saveUseSessionUseCase;
   final GetUseSessionUseCase getUseSessionUseCase;
+  final LogoutUseSesssionUseCase logoutUseSesssionUseCase;
   
    Authusecases({
     required this.loginUseCase,
     required this.registerUseCase,
     required this.saveUseSessionUseCase,
-    required this.getUseSessionUseCase  
+    required this.getUseSessionUseCase,  
+    required this.logoutUseSesssionUseCase
    });
 
 }

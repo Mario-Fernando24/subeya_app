@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:subeya/main.dart';
 import 'package:subeya/src/presentation/pages/client/home/bloc/ClientHomeBloc.dart';
 import 'package:subeya/src/presentation/pages/client/home/bloc/ClientHomeEvent.dart';
 import 'package:subeya/src/presentation/pages/client/home/bloc/ClientHomeState.dart';
@@ -55,6 +56,15 @@ class _ClienthomepageState extends State<Clienthomepage> {
                       ChangeDrawerIndex(index: 0),
                     );
                     Navigator.pop(context); // Close the drawer
+                  },
+                ),
+                 ListTile(
+                  leading: Icon(Icons.logout),
+                  title: Text('Salir'),
+                  onTap: () {
+                    context.read<ClientHomeBloc>().add(Logout());
+                    Navigator.pushAndRemoveUntil(context, 
+                    MaterialPageRoute(builder: (context) =>MyApp()), (route) => false);
                   },
                 ),
                 // Add more ListTiles for other menu options
