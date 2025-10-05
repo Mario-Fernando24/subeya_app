@@ -1,5 +1,5 @@
 // agregar todos los use cases de auth
-import 'package:subeya/src/domain/useCases/auth/ClearUseSessionUseCase.dart';
+import 'package:subeya/src/domain/useCases/auth/LogoutUseSessionUseCase.dart';
 import 'package:subeya/src/domain/useCases/auth/GetUseSessionUseCase.dart';
 import 'package:subeya/src/domain/useCases/auth/LoginUseCase.dart';
 import 'package:subeya/src/domain/useCases/auth/RegisterUseCases.dart';
