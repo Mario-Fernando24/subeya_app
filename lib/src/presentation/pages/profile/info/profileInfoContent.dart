@@ -21,29 +21,42 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
 
           ],
         ),
+        _cardUserInfo()
       ],
     );
   }
 
   Widget _cardUserInfo(){
-    return Card(
-      child: Column(
-        children: [
-          Container(
-            width: 150,
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: ClipOval(
-               child: FadeInImage.assetNetwork(
-                  image: 'https://warena.co/assets/img/warena-logo1.png',
-                  placeholder: 'assets/img/user_image.png',
-                  fit: BoxFit.cover,
-                  fadeInDuration: Duration(milliseconds: 1)
-                ),  
-              ),
-              ),
-          )
-        ],
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 250,
+      margin: EdgeInsets.only(left: 20, right: 20, top: 100),
+      child: Card(
+        color: Colors.white,
+        surfaceTintColor: Colors.white,
+        child: Column(
+          children: [
+            Container(
+              width: 115,
+              margin: EdgeInsets.only(top: 15.0, bottom: 15.0),
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: ClipOval(
+                 child: FadeInImage.assetNetwork(
+                    image: 'https://warena.co/assets/img/warena-logo1.png',
+                    placeholder: 'assets/img/user_image.png',
+                    fit: BoxFit.cover,
+                    fadeInDuration: Duration(milliseconds: 1)
+                  ),  
+                ),
+                ),
+            ),
+            Text('NOMBRE DE USUARIO', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
+            Text('CORREO ELECTRONICO', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
+            Text('CORREO ELECTRONICO', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
+
+          ],
+        ),
       ),
     );
   }
@@ -52,7 +65,7 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
     return Container(
       alignment: Alignment.topCenter,
       padding: EdgeInsets.only(top: 40),
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height * 0.35,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -98,7 +111,9 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
           option,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        onTap: () {},
+        onTap: () {
+          print(  'OPCION: $option');
+        },
       ),
     );
   }
