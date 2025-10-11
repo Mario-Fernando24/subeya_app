@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:subeya/src/presentation/widgets/DefaultIconBack.dart';
 import 'package:subeya/src/presentation/widgets/DefaultTextField.dart';
 
 class ProfileUpdateContent extends StatelessWidget {
@@ -18,7 +19,13 @@ class ProfileUpdateContent extends StatelessWidget {
 
           ],
         ),
-        _cardUserInfo(context)
+         
+        _cardUserInfo(context),
+         DefaultIconBack(
+          color: Colors.white,
+          margin: EdgeInsets.only(top: 50, left: 30),
+        )
+       
       ],
     );
   }
@@ -26,7 +33,7 @@ class ProfileUpdateContent extends StatelessWidget {
   Widget _cardUserInfo(BuildContext context){
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 250,
+      height: MediaQuery.of(context).size.height*0.50,
       margin: EdgeInsets.only(left: 20, right: 20, top: 100),
       child: Card(
         color: Colors.white,
@@ -52,6 +59,7 @@ class ProfileUpdateContent extends StatelessWidget {
               text: 'Nombre',
               icon: Icons.person,
               onChanged:(text) => {},
+              margin: EdgeInsets.only(left: 30, right: 30, top: 15),
               validate: (value){},
               backgrooundColor: Colors.grey[200],
             ),
@@ -59,15 +67,17 @@ class ProfileUpdateContent extends StatelessWidget {
               text: 'Apellido',
               icon: Icons.person_2_outlined,
               onChanged:(text) => {},
+              margin: EdgeInsets.only(left: 30, right: 30, top: 15),
               validate: (value){},
-                backgrooundColor: Colors.grey[200],
+              backgrooundColor: Colors.grey[200],
             ),
               DefaultTextField(
               text: 'Telefono',
               icon: Icons.phone,
               onChanged:(text) => {},
+              margin: EdgeInsets.only(left: 30, right: 30, top: 15),
               validate: (value){},
-                backgrooundColor: Colors.grey[200],
+              backgrooundColor: Colors.grey[200],
             ),
             // Text('${user?.name ?? ''} ${user?.lastname ?? ''}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
             // Text(user?.email ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
@@ -82,8 +92,8 @@ class ProfileUpdateContent extends StatelessWidget {
   Widget _headerProfile(BuildContext context) {
     return Container(
       alignment: Alignment.topCenter,
-      padding: EdgeInsets.only(top: 40),
-      height: MediaQuery.of(context).size.height * 0.35,
+      padding: EdgeInsets.only(top: 60),
+      height: MediaQuery.of(context).size.height * 0.40,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -96,7 +106,7 @@ class ProfileUpdateContent extends StatelessWidget {
         ),
       ),
       child: Text(
-        'Perfil del usuario',
+        'Actualizar usuario',
         style: TextStyle(
           color: Colors.white,
           fontSize: 20,
