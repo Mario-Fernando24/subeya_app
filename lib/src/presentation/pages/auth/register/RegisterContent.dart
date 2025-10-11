@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterBloc.dart';
-import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterEvent.dart';
-import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterState.dart';
+import 'package:subeya/src/presentation/bloc/bloc_register/RegisterBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_register/RegisterEvent.dart';
+import 'package:subeya/src/presentation/bloc/bloc_register/RegisterState.dart';
 import 'package:subeya/src/presentation/utils/blocFormItem.dart';
 import 'package:subeya/src/presentation/widgets/DefaultButton.dart';
 import 'package:subeya/src/presentation/widgets/DefaultTextFieldOutlined.dart';

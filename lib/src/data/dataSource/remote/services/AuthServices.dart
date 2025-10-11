@@ -55,7 +55,7 @@ class Authservices {
     try {
       Dio dio = Dio();
       // URL de tu API
-      String url = "${Apiconfig.baseUrl}/auth/login";
+      String url = "${Apiconfig.baseUrl}/auth/register";
       // Headers
       dio.options.headers = {'Content-Type': 'application/json'};
       // Body

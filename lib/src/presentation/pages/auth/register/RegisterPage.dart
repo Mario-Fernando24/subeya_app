@@ -4,9 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 import 'package:subeya/src/presentation/pages/auth/register/RegisterContent.dart';
-import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterBloc.dart';
-import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterEvent.dart';
-import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterState.dart';
+import 'package:subeya/src/presentation/bloc/bloc_register/RegisterBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_register/RegisterEvent.dart';
+import 'package:subeya/src/presentation/bloc/bloc_register/RegisterState.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -42,9 +42,10 @@ class _RegisterPageState extends State<RegisterPage> {
               textColor: Colors.white,
               fontSize: 16.0
             );
-             Navigator.pop(context);
 
-           
+            // ✅ Limpia el estado del error para que no siga escuchando
+             context.read<RegisterBloc>().state.copyWith(response: null);
+      
           } 
         },
         child: BlocBuilder<RegisterBloc, RegisterState>(

@@ -3,10 +3,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 import 'package:subeya/src/presentation/pages/auth/login/LoginContent.dart';
-import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_login/LoginBloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
-import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginState.dart';
+import 'package:subeya/src/presentation/bloc/bloc_login/LoginEvent.dart';
+import 'package:subeya/src/presentation/bloc/bloc_login/LoginState.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

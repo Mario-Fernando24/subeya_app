@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:subeya/src/domain/models/user_model.dart';
 
 class ProfileInfoContent extends StatefulWidget {
-  const ProfileInfoContent({super.key});
+  
+  User? user;
+
+  ProfileInfoContent(this.user);
 
   @override
   State<ProfileInfoContent> createState() => _ProfileInfoContentState();
@@ -16,8 +20,12 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
           children: [
             _headerProfile(),
             Spacer(),
-            _actionProfile('Editar Perfil', Icons.edit),
-             _actionProfile('Cerrar sesion', Icons.power_settings_new),
+            _actionProfile('Editar Perfil', Icons.edit, () {
+              Navigator.pushNamed(context, 'profile/update');
+            }),
+            _actionProfile('Cerrar sesion', Icons.power_settings_new, () {
+              print('Cerrar sesion');
+            }),
 
           ],
         ),
@@ -43,7 +51,7 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
                 aspectRatio: 1,
                 child: ClipOval(
                  child: FadeInImage.assetNetwork(
-                    image: 'https://warena.co/assets/img/warena-logo1.png',
+                    image: 'https://i.postimg.cc/5NyPJLjf/BANNER-png-3.png',
                     placeholder: 'assets/img/user_image.png',
                     fit: BoxFit.cover,
                     fadeInDuration: Duration(milliseconds: 1)
@@ -51,9 +59,9 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
                 ),
                 ),
             ),
-            Text('NOMBRE DE USUARIO', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
-            Text('CORREO ELECTRONICO', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
-            Text('CORREO ELECTRONICO', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
+            Text('${widget.user?.name ?? ''} ${widget.user?.lastname ?? ''}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
+            Text(widget.user?.email ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
+            Text(widget.user?.phone ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
 
           ],
         ),
@@ -78,7 +86,7 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
         ),
       ),
       child: Text(
-        'PERFIL DEL USUARIO',
+        'Perfil del usuario',
         style: TextStyle(
           color: Colors.white,
           fontSize: 20,
@@ -88,32 +96,33 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
     );
   }
 
-  Widget _actionProfile(String option, IconData icon) {
-    return Container(
-      margin: EdgeInsets.only(left: 10.0, right: 35, top: 5.0),
-      child: ListTile(
-        leading: Container(
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(255, 14, 29, 166),
-                Color.fromARGB(255, 30, 112, 227),
-              ],
+  Widget _actionProfile(String option, IconData icon, Function()? onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.only(left: 10.0, right: 35, top: 5.0),
+        child: ListTile(
+          leading: Container(
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromARGB(255, 14, 29, 166),
+                  Color.fromARGB(255, 30, 112, 227),
+                ],
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(50)),
             ),
-            borderRadius: BorderRadius.all(Radius.circular(50)),
+            child: Icon(icon, color: Colors.white),
           ),
-          child: Icon(icon, color: Colors.white),
+          title: Text(
+            option,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+         
         ),
-        title: Text(
-          option,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        onTap: () {
-          print(  'OPCION: $option');
-        },
       ),
     );
   }

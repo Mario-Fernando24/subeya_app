@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
-import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
-import 'package:subeya/src/presentation/pages/auth/login/bloc/LoginState.dart';
+import 'package:subeya/src/presentation/bloc/bloc_login/LoginBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_login/LoginEvent.dart';
+import 'package:subeya/src/presentation/bloc/bloc_login/LoginState.dart';
 import 'package:subeya/src/presentation/utils/blocFormItem.dart';
 import 'package:subeya/src/presentation/widgets/DefaultButton.dart';
 import 'package:subeya/src/presentation/widgets/DefaultTextField.dart';

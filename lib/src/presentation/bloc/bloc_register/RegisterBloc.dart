@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
-import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterEvent.dart';
-import 'package:subeya/src/presentation/pages/auth/register/bloc/RegisterState.dart';
+import 'package:subeya/src/presentation/bloc/bloc_register/RegisterEvent.dart';
+import 'package:subeya/src/presentation/bloc/bloc_register/RegisterState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subeya/src/presentation/utils/blocFormItem.dart';
 
@@ -118,6 +118,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
      // luego llamamos al caso de uso para la peticion
       Resource response = await authusecases.registerUseCase.run(state.toUser());
+
+      print(response.runtimeType);
+      print(response.toString());
 
       emit(state.copyWith(response: response, formkeRegister: formkeRegister));
     });

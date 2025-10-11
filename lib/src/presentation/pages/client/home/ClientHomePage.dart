@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subeya/main.dart';
-import 'package:subeya/src/presentation/pages/client/home/bloc/ClientHomeBloc.dart';
-import 'package:subeya/src/presentation/pages/client/home/bloc/ClientHomeEvent.dart';
-import 'package:subeya/src/presentation/pages/client/home/bloc/ClientHomeState.dart';
+import 'package:subeya/src/presentation/bloc/bloc_client_home/ClientHomeBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_client_home/ClientHomeEvent.dart';
+import 'package:subeya/src/presentation/bloc/bloc_client_home/ClientHomeState.dart';
 import 'package:subeya/src/presentation/pages/profile/info/profileInfoPage.dart';
 
 class Clienthomepage extends StatefulWidget {

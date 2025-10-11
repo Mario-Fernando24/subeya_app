@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
-import 'package:subeya/src/presentation/pages/client/home/bloc/ClientHomeEvent.dart';
-import 'package:subeya/src/presentation/pages/client/home/bloc/ClientHomeState.dart';
+import 'package:subeya/src/presentation/bloc/bloc_client_home/ClientHomeEvent.dart';
+import 'package:subeya/src/presentation/bloc/bloc_client_home/ClientHomeState.dart';
 
 class ClientHomeBloc extends Bloc<ClientHomeEvent, ClientHomeState>{
 
