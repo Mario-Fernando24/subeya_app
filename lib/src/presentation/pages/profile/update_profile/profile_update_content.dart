@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:subeya/src/domain/models/user_model.dart';
 import 'package:subeya/src/presentation/widgets/DefaultIconBack.dart';
 import 'package:subeya/src/presentation/widgets/DefaultTextField.dart';
 
 class ProfileUpdateContent extends StatelessWidget {
- 
+  
+  User ? user;
 
- const ProfileUpdateContent();
+  ProfileUpdateContent(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,7 @@ class ProfileUpdateContent extends StatelessWidget {
             DefaultTextField(
               text: 'Nombre',
               icon: Icons.person,
+              initialValue: user?.name ?? '',
               onChanged:(text) => {},
               margin: EdgeInsets.only(left: 30, right: 30, top: 15),
               validate: (value){},
@@ -66,6 +69,7 @@ class ProfileUpdateContent extends StatelessWidget {
               DefaultTextField(
               text: 'Apellido',
               icon: Icons.person_2_outlined,
+              initialValue: user?.lastname ?? '',
               onChanged:(text) => {},
               margin: EdgeInsets.only(left: 30, right: 30, top: 15),
               validate: (value){},
@@ -74,6 +78,7 @@ class ProfileUpdateContent extends StatelessWidget {
               DefaultTextField(
               text: 'Telefono',
               icon: Icons.phone,
+              initialValue: user?.phone ?? '',
               onChanged:(text) => {},
               margin: EdgeInsets.only(left: 30, right: 30, top: 15),
               validate: (value){},
