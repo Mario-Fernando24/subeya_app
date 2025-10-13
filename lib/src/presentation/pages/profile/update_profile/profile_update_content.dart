@@ -1,13 +1,20 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subeya/src/domain/models/user_model.dart';
+import 'package:subeya/src/presentation/bloc/bloc_profile_update/profileUpdateBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_profile_update/profileUpdateEvent.dart';
+import 'package:subeya/src/presentation/bloc/bloc_profile_update/profileUpdateState.dart';
+import 'package:subeya/src/presentation/utils/blocFormItem.dart';
 import 'package:subeya/src/presentation/widgets/DefaultIconBack.dart';
 import 'package:subeya/src/presentation/widgets/DefaultTextField.dart';
 
 class ProfileUpdateContent extends StatelessWidget {
-  
-  User ? user;
+  User? user;
+  ProfileUpdateState states;
 
-  ProfileUpdateContent(this.user, {super.key});
+  ProfileUpdateContent(this.user, this.states, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,25 +24,23 @@ class ProfileUpdateContent extends StatelessWidget {
           children: [
             _headerProfile(context),
             Spacer(),
-             _actionProfile('Actualizar Usuario', Icons.check),
-
+            _actionProfile('Actualizar Usuario', Icons.check, context),
           ],
         ),
-         
+
         _cardUserInfo(context),
-         DefaultIconBack(
+        DefaultIconBack(
           color: Colors.white,
           margin: EdgeInsets.only(top: 50, left: 30),
-        )
-       
+        ),
       ],
     );
   }
 
-  Widget _cardUserInfo(BuildContext context){
+  Widget _cardUserInfo(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height*0.50,
+      height: MediaQuery.of(context).size.height * 0.50,
       margin: EdgeInsets.only(left: 20, right: 20, top: 100),
       child: Card(
         color: Colors.white,
@@ -48,46 +53,67 @@ class ProfileUpdateContent extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 1,
                 child: ClipOval(
-                 child: FadeInImage.assetNetwork(
+                  child: FadeInImage.assetNetwork(
                     image: 'https://i.postimg.cc/5NyPJLjf/BANNER-png-3.png',
                     placeholder: 'assets/img/user_image.png',
                     fit: BoxFit.cover,
-                    fadeInDuration: Duration(milliseconds: 1)
-                  ),  
+                    fadeInDuration: Duration(milliseconds: 1),
+                  ),
                 ),
-                ),
+              ),
             ),
             DefaultTextField(
               text: 'Nombre',
               icon: Icons.person,
               initialValue: user?.name ?? '',
-              onChanged:(text) => {},
+              onChanged:
+                  (text) => {
+                    context.read<ProfileUpdateBloc>().add(
+                      NameChanged(name: BlocFormItem(value: text)),
+                    ),
+                  },
               margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-              validate: (value){},
+              validate: (value) {
+                return states.name.error;
+              },
               backgrooundColor: Colors.grey[200],
             ),
-              DefaultTextField(
+            DefaultTextField(
               text: 'Apellido',
               icon: Icons.person_2_outlined,
               initialValue: user?.lastname ?? '',
-              onChanged:(text) => {},
+              onChanged:
+                  (text) => {
+                    context.read<ProfileUpdateBloc>().add(
+                      LastnameChanged(lastname: BlocFormItem(value: text)),
+                    ),
+                  },
               margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-              validate: (value){},
+              validate: (value) {
+                return states.lastname.error;
+              },
               backgrooundColor: Colors.grey[200],
             ),
-              DefaultTextField(
+            DefaultTextField(
               text: 'Telefono',
               icon: Icons.phone,
               initialValue: user?.phone ?? '',
-              onChanged:(text) => {},
+              onChanged:
+                  (text) => {
+                    context.read<ProfileUpdateBloc>().add(
+                      PhoneChanged(phone: BlocFormItem(value: text)),
+                    ),
+                  },
               margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-              validate: (value){},
+              validate: (value) {
+                return states.phone.error;
+              },
               backgrooundColor: Colors.grey[200],
             ),
+
             // Text('${user?.name ?? ''} ${user?.lastname ?? ''}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
             // Text(user?.email ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
             // Text(user?.phone ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
-
           ],
         ),
       ),
@@ -121,7 +147,7 @@ class ProfileUpdateContent extends StatelessWidget {
     );
   }
 
-  Widget _actionProfile(String option, IconData icon) {
+  Widget _actionProfile(String option, IconData icon, BuildContext context, ) {
     return Container(
       margin: EdgeInsets.only(left: 10.0, right: 35, top: 5.0),
       child: ListTile(
@@ -145,8 +171,16 @@ class ProfileUpdateContent extends StatelessWidget {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         onTap: () {
-          print(  'OPCION: $option');
-        },
+           print('Validando Formulario...');
+           if(states.formKeyUpdate != null){
+        if(states.name.error == null && states.lastname.error == null && states.phone.error == null){
+          print('Formulario válido. Enviando datos...');
+          context.read<ProfileUpdateBloc>().add(FormUpdateSubmit());
+        }
+        }else{
+          print('Formulario inválido. Corrige los errores.'); 
+        }
+       },
       ),
     );
   }
