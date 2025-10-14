@@ -52,6 +52,10 @@ class ProfileUpdateBloc extends Bloc<ProfileUpdateEvent, ProfileUpdateState> {
     });
 
     on<FormUpdateSubmit>((event, emit) {
+      print('formKeyUpdate: ${state.formKeyUpdate}');
+print('currentState: ${state.formKeyUpdate?.currentState}');
+
+           // Aquí puedes manejar el envío del formulario
       if (state.formKeyUpdate!.currentState!.validate()) {
         // Aquí puedes manejar el envío del formulario
         print(state.name.value);

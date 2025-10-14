@@ -45,76 +45,79 @@ class ProfileUpdateContent extends StatelessWidget {
       child: Card(
         color: Colors.white,
         surfaceTintColor: Colors.white,
-        child: Column(
-          children: [
-            Container(
-              width: 115,
-              margin: EdgeInsets.only(top: 15.0, bottom: 15.0),
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: ClipOval(
-                  child: FadeInImage.assetNetwork(
-                    image: 'https://i.postimg.cc/5NyPJLjf/BANNER-png-3.png',
-                    placeholder: 'assets/img/user_image.png',
-                    fit: BoxFit.cover,
-                    fadeInDuration: Duration(milliseconds: 1),
+        child: Form(
+          key: states.formKeyUpdate,
+          child: Column(
+            children: [
+              Container(
+                width: 115,
+                margin: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: ClipOval(
+                    child: FadeInImage.assetNetwork(
+                      image: 'https://i.postimg.cc/5NyPJLjf/BANNER-png-3.png',
+                      placeholder: 'assets/img/user_image.png',
+                      fit: BoxFit.cover,
+                      fadeInDuration: Duration(milliseconds: 1),
+                    ),
                   ),
                 ),
               ),
-            ),
-            DefaultTextField(
-              text: 'Nombre',
-              icon: Icons.person,
-              initialValue: user?.name ?? '',
-              onChanged:
-                  (text) => {
-                    context.read<ProfileUpdateBloc>().add(
-                      NameChanged(name: BlocFormItem(value: text)),
-                    ),
-                  },
-              margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-              validate: (value) {
-                return states.name.error;
-              },
-              backgrooundColor: Colors.grey[200],
-            ),
-            DefaultTextField(
-              text: 'Apellido',
-              icon: Icons.person_2_outlined,
-              initialValue: user?.lastname ?? '',
-              onChanged:
-                  (text) => {
-                    context.read<ProfileUpdateBloc>().add(
-                      LastnameChanged(lastname: BlocFormItem(value: text)),
-                    ),
-                  },
-              margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-              validate: (value) {
-                return states.lastname.error;
-              },
-              backgrooundColor: Colors.grey[200],
-            ),
-            DefaultTextField(
-              text: 'Telefono',
-              icon: Icons.phone,
-              initialValue: user?.phone ?? '',
-              onChanged:
-                  (text) => {
-                    context.read<ProfileUpdateBloc>().add(
-                      PhoneChanged(phone: BlocFormItem(value: text)),
-                    ),
-                  },
-              margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-              validate: (value) {
-                return states.phone.error;
-              },
-              backgrooundColor: Colors.grey[200],
-            ),
-
-            // Text('${user?.name ?? ''} ${user?.lastname ?? ''}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
-            // Text(user?.email ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
-            // Text(user?.phone ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
-          ],
+              DefaultTextField(
+                text: 'Nombre',
+                icon: Icons.person,
+                initialValue: user?.name ?? '',
+                onChanged:
+                    (text) => {
+                      context.read<ProfileUpdateBloc>().add(
+                        NameChanged(name: BlocFormItem(value: text)),
+                      ),
+                    },
+                margin: EdgeInsets.only(left: 30, right: 30, top: 15),
+                validate: (value) {
+                  return states.name.error;
+                },
+                backgrooundColor: Colors.grey[200],
+              ),
+              DefaultTextField(
+                text: 'Apellido',
+                icon: Icons.person_2_outlined,
+                initialValue: user?.lastname ?? '',
+                onChanged:
+                    (text) => {
+                      context.read<ProfileUpdateBloc>().add(
+                        LastnameChanged(lastname: BlocFormItem(value: text)),
+                      ),
+                    },
+                margin: EdgeInsets.only(left: 30, right: 30, top: 15),
+                validate: (value) {
+                  return states.lastname.error;
+                },
+                backgrooundColor: Colors.grey[200],
+              ),
+              DefaultTextField(
+                text: 'Telefono',
+                icon: Icons.phone,
+                initialValue: user?.phone ?? '',
+                onChanged:
+                    (text) => {
+                      context.read<ProfileUpdateBloc>().add(
+                        PhoneChanged(phone: BlocFormItem(value: text)),
+                      ),
+                    },
+                margin: EdgeInsets.only(left: 30, right: 30, top: 15),
+                validate: (value) {
+                  return states.phone.error;
+                },
+                backgrooundColor: Colors.grey[200],
+              ),
+          
+              // Text('${user?.name ?? ''} ${user?.lastname ?? ''}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
+              // Text(user?.email ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
+              // Text(user?.phone ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
+            ],
+          ),
         ),
       ),
     );
@@ -147,7 +150,7 @@ class ProfileUpdateContent extends StatelessWidget {
     );
   }
 
-  Widget _actionProfile(String option, IconData icon, BuildContext context, ) {
+  Widget _actionProfile(String option, IconData icon, BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 10.0, right: 35, top: 5.0),
       child: ListTile(
@@ -171,16 +174,18 @@ class ProfileUpdateContent extends StatelessWidget {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         onTap: () {
-           print('Validando Formulario...');
-           if(states.formKeyUpdate != null){
-        if(states.name.error == null && states.lastname.error == null && states.phone.error == null){
-          print('Formulario válido. Enviando datos...');
-          context.read<ProfileUpdateBloc>().add(FormUpdateSubmit());
-        }
-        }else{
-          print('Formulario inválido. Corrige los errores.'); 
-        }
-       },
+          print('Validando Formulario...');
+          if (states.formKeyUpdate != null) {
+            if (states.name.error == null &&
+                states.lastname.error == null &&
+                states.phone.error == null) {
+              print('Formulario válido. Enviando datos...');
+              context.read<ProfileUpdateBloc>().add(FormUpdateSubmit());
+            }
+          } else {
+            print('Formulario inválido. Corrige los errores.');
+          }
+        },
       ),
     );
   }

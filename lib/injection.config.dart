@@ -14,9 +14,13 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:subeya/src/data/dataSource/local/sharefPref.dart' as _i234;
 import 'package:subeya/src/data/dataSource/remote/services/AuthServices.dart'
     as _i382;
+import 'package:subeya/src/data/dataSource/remote/services/UserService.dart'
+    as _i211;
 import 'package:subeya/src/di/AppModule.dart' as _i958;
 import 'package:subeya/src/domain/repository/AuthRepository.dart' as _i594;
+import 'package:subeya/src/domain/repository/UserRepository.dart' as _i960;
 import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart' as _i161;
+import 'package:subeya/src/domain/useCases/users/UsersUseCase.dart' as _i893;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -28,8 +32,11 @@ extension GetItInjectableX on _i174.GetIt {
     final appModule = _$AppModule();
     gh.factory<_i234.Sharefpref>(() => appModule.sharefpref);
     gh.factory<_i382.Authservices>(() => appModule.authservices);
+    gh.factory<_i211.Userservice>(() => appModule.userservice);
     gh.factory<_i594.Authrepository>(() => appModule.authrepository);
+    gh.factory<_i960.UserRepository>(() => appModule.userRepository);
     gh.factory<_i161.Authusecases>(() => appModule.authusecases);
+    gh.factory<_i893.UsersUseCase>(() => appModule.useCaseUse);
     return this;
   }
 }
