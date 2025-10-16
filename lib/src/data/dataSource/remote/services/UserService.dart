@@ -1,60 +1,69 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:subeya/src/data/api/ApiConfig.dart';
 import 'package:subeya/src/domain/models/user_model.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 
 class Userservice {
-   
-   // Actualiza un usuario con datos y una imagen opcional
-   Future<Resource<User>> update(int userId, User user, File? imageFile) async {
+  final Future<String> token;
+
+  Userservice(this.token);
+
+    Future<Resource<User>> update(int id, User user) async {
+    final authToken = await token;
+    final String url = '${Apiconfig.baseUrl}/users/update/$id';
+
+    print('================= ACTUALIZAR USUARIO =================');
+    print('➡️ URL: $url');
+    print('🔑 Token: $authToken');
+    print('📦 Body: ${user.toJson()}');
+    print('========================================================');
 
     try {
-      Dio dio = Dio();
-      // URL de tu API
-      String url = "${Apiconfig.baseUrl}/users/update/$userId";
-      // Headers
-      dio.options.headers = {
-        'Content-Type': 'application/json',
-        // Agrega aquí el token de autenticación si es necesario
-        // 'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
-      };
-      // Body
-      Map<String, dynamic> body = user.toJson();
+      final dio = Dio();
 
-      FormData formData = FormData.fromMap(body);
+      final response = await dio.put(
+        url,
+        data: user.toJson(),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': authToken,
+          },
+        ),
+      );
 
-      if (imageFile != null) {
-        String fileName = imageFile.path.split('/').last;
-        formData.files.add(MapEntry(
-          'profileImage',
-          await MultipartFile.fromFile(imageFile.path, filename: fileName),
-        ));
-      }
-
-      // Petición PUT
-      final response = await dio.put(url, data: formData);
+      print('✅ Respuesta: ${response.statusCode}');
+      print('🧾 Datos: ${response.data}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        User updatedUser = User.fromJson(response.data);
-  
+        final userResponse = User.fromJson(response.data);
+        return Success(userResponse);
+      } else {
+        return ErrorData('Error al actualizar el usuario: ${response.data}');
+      }
+    } on DioException catch (e) {
+      print('❌ ============== ERROR DIO ==============');
+      print('📡 STATUS: ${e.response?.statusCode}');
+      print('💬 DATA: ${e.response?.data}');
+      print('==========================================');
 
-        return Success(updatedUser);
-      } else {
-        return ErrorData("Error al actualizar el usuario: ${response.data['message']}");
+      String message = 'Error al procesar la solicitud.';
+
+      if (e.response?.statusCode == 401) {
+        message = 'No autorizado. Token expirado o inválido.';
+      } else if (e.response?.statusCode == 404) {
+        message = 'Usuario no encontrado.';
+      } else if (e.response?.statusCode == 500) {
+        message = 'Error interno del servidor.';
       }
-    } catch (e) {
-      if (e is DioException) {
-        final message = e.response?.data['message'] ?? 'Error desconocido';
-        print(message);
-        return ErrorData(message);
-      } else {
-        print("Otro error: $e");
-        return ErrorData(e.toString());
-      }
+
+      return ErrorData(message);
+    } catch (e, stacktrace) {
+      print('⚠️ Error inesperado: $e');
+      print(stacktrace);
+      return ErrorData('Error inesperado: ${e.toString()}');
     }
- }
+  }
 
-
-}
+  }

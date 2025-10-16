@@ -4,7 +4,7 @@ class User {
     int ?id;
     String name;
     String lastname;
-    String email;
+    String ?email;
     String phone;
     String ?password;
     dynamic ?image;
@@ -15,7 +15,7 @@ class User {
         this.id,
         required this.name,
         required this.lastname,
-        required this.email,
+        this.email,
         required this.phone,
         this.image,
         this.password,
@@ -25,10 +25,10 @@ class User {
 
     factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
-        name: json["name"],
-        lastname: json["lastname"],
-        email: json["email"],
-        phone: json["phone"],
+        name: json["name"] ?? '',
+        lastname: json["lastname"] ?? '',
+        email: json["email"] ?? '',
+        phone: json["phone"] ?? '',
         password: json["password"],
         image: json["image"],
         notificationToken: json["notification_token"],
