@@ -15,8 +15,10 @@ class ProfileInfoBloc extends Bloc<ProfileInfoEvent, ProfileInfoState> {
         //llamar al caso de uso para obtener la informacion del usuario
         //y emitir el estado con la informacion obtenida
          AuthResponse? response  =  await authusecases.getUseSessionUseCase.run();
+         print("+++++++++++++++++ProfileInfoBloc+++++++++++++++++++++++++++++++++++");
           print(response!.toJson());
-         emit(state.copyWith(user: response!.user));
+         print("++++++++++++++++ProfileInfoBloc++++++++++++++++++++++++++++++++++++");
+         emit(state.copyWith(user: response.user));
       });
   
     }

@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/domain/models/user_model.dart';
+import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:subeya/src/domain/useCases/users/UsersUseCase.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 import 'package:subeya/src/presentation/bloc/bloc_profile_update/profileUpdateEvent.dart';
@@ -13,9 +15,10 @@ class ProfileUpdateBloc extends Bloc<ProfileUpdateEvent, ProfileUpdateState> {
 
   //inyectar casos de uso
   UsersUseCase usersUseCase;
+  Authusecases authusecases;
   final formkeyUpdate = GlobalKey<FormState>();
 
-  ProfileUpdateBloc(this.usersUseCase) : super(ProfileUpdateState()) {
+  ProfileUpdateBloc(this.usersUseCase, this.authusecases) : super(ProfileUpdateState()) {
 
     on<ProfileUpdateInitEvent>((event, emit) {
       emit(
@@ -58,6 +61,17 @@ class ProfileUpdateBloc extends Bloc<ProfileUpdateEvent, ProfileUpdateState> {
         ),
         formKeyUpdate: formkeyUpdate,
       ));
+    });
+
+    on<UpdateUserSession>((event, emit) async {
+
+      AuthResponse response = await authusecases.getUseSessionUseCase.run();
+      response.user!.name = event.user.name;
+      response.user!.lastname = event.user.lastname;
+      response.user!.phone = event.user.phone;
+      response.user!.image = event.user.image;
+      await authusecases.saveUseSessionUseCase.run(response);
+
     });
 
     on<FormUpdateSubmit>((event, emit) async {

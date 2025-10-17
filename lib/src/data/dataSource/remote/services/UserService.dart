@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:subeya/src/data/api/ApiConfig.dart';
+import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/domain/models/user_model.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
 
@@ -9,7 +10,7 @@ class Userservice {
 
   Userservice(this.token);
 
-    Future<Resource<User>> update(int id, User user) async {
+    Future<Resource<AuthResponse>> update(int id, User user) async {
     final authToken = await token;
     final String url = '${Apiconfig.baseUrl}/users/update/$id';
 
@@ -37,7 +38,8 @@ class Userservice {
       print('🧾 Datos: ${response.data}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final userResponse = User.fromJson(response.data);
+        final userResponse = AuthResponse.fromJson(response.data);
+
         return Success(userResponse);
       } else {
         return ErrorData('Error al actualizar el usuario: ${response.data}');

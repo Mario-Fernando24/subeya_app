@@ -16,7 +16,7 @@ List<BlocProvider> blocProviders = [
    BlocProvider<LoginBloc>(create: (context) => LoginBloc(locator<Authusecases>())..add(LoginInitEvent())),
    BlocProvider<RegisterBloc>(create: (context) => RegisterBloc(locator<Authusecases>())..add(RegisterInitEvent())),
    BlocProvider<ClientHomeBloc>(create: (context) => ClientHomeBloc(locator<Authusecases>())),
-   BlocProvider<ProfileInfoBloc>(create: (context) => ProfileInfoBloc(locator<Authusecases>())..add(GetUserInfo())),
-   BlocProvider<ProfileUpdateBloc>(create: (context) => ProfileUpdateBloc(locator<UsersUseCase>())),
+   BlocProvider<ProfileInfoBloc>(create: (context) => ProfileInfoBloc(locator<Authusecases>())),
+   BlocProvider<ProfileUpdateBloc>(create: (context) => ProfileUpdateBloc(locator<UsersUseCase>(), locator<Authusecases>())),
 
 ];

@@ -2,10 +2,10 @@ import 'package:subeya/src/domain/models/rol_model.dart';
 //https://app.quicktype.io/
 class User {
     int ?id;
-    String name;
-    String lastname;
+    String ?name;
+    String ?lastname;
     String ?email;
-    String phone;
+    String ?phone;
     String ?password;
     dynamic ?image;
     dynamic ?notificationToken;

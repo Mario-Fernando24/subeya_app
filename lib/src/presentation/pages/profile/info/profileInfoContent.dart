@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subeya/src/domain/models/user_model.dart';
+import 'package:subeya/src/presentation/bloc/bloc_profile_info/profileInfoBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_profile_info/profileInfoEvent.dart';
 
 class ProfileInfoContent extends StatefulWidget {
   
@@ -12,6 +17,15 @@ class ProfileInfoContent extends StatefulWidget {
 }
 
 class _ProfileInfoContentState extends State<ProfileInfoContent> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    context.read<ProfileInfoBloc>().add(GetUserInfo());
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -60,8 +74,17 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
                 ),
             ),
             Text('${widget.user?.name ?? ''} ${widget.user?.lastname ?? ''}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
-            Text(widget.user?.email ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
-            Text(widget.user?.phone ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
+// Text(
+//   jsonEncode(widget.user?.toJson() ?? {}),
+//   style: TextStyle(
+//     fontWeight: FontWeight.bold,
+//     fontSize: 16.0,
+//     color: Colors.grey[600],
+//   ),
+// ),        
+    Text(widget.user?.email ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
+
+    Text(widget.user?.phone ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
 
           ],
         ),
