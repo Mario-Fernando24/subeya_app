@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:subeya/src/domain/utils/Resource.dart';
@@ -8,6 +10,7 @@ class ProfileUpdateState extends Equatable {
   final  BlocFormItem name;
   final  BlocFormItem lastname;
   final  BlocFormItem phone;
+  final File? imageFile;
   final GlobalKey<FormState>? formKeyUpdate;
   final Resource? response;
 
@@ -17,6 +20,7 @@ class ProfileUpdateState extends Equatable {
       this.name = const BlocFormItem(error: 'Ingresa Nombre'),
       this.lastname = const BlocFormItem(error: 'Ingresa Apellido'),
       this.phone = const BlocFormItem(error: 'Ingresa el Telefono'),
+      this.imageFile,
       this.formKeyUpdate,
       this.response,
    });
@@ -27,6 +31,7 @@ class ProfileUpdateState extends Equatable {
       BlocFormItem? name,
       BlocFormItem? lastname,
       BlocFormItem? phone,
+      File? imageFile,
       GlobalKey<FormState>? formKeyUpdate,
       Resource? response
    }){
@@ -35,6 +40,7 @@ class ProfileUpdateState extends Equatable {
         name: name ?? this.name,
         lastname: lastname ?? this.lastname,
         phone: phone ?? this.phone,
+        imageFile: imageFile ?? this.imageFile,
         formKeyUpdate: formKeyUpdate ?? this.formKeyUpdate,
         response: response ?? this.response
       );
@@ -42,7 +48,7 @@ class ProfileUpdateState extends Equatable {
 
 
   @override
-  List<Object?> get props => [id,name, lastname, phone, formKeyUpdate,response];
+  List<Object?> get props => [id,name, lastname, phone, imageFile, formKeyUpdate,response];
 
 }
 

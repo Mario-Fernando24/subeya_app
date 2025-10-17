@@ -7,6 +7,7 @@ import 'package:subeya/src/presentation/bloc/bloc_profile_update/profileUpdateBl
 import 'package:subeya/src/presentation/bloc/bloc_profile_update/profileUpdateEvent.dart';
 import 'package:subeya/src/presentation/bloc/bloc_profile_update/profileUpdateState.dart';
 import 'package:subeya/src/presentation/utils/blocFormItem.dart';
+import 'package:subeya/src/presentation/utils/galleryOrPhotoDialog.dart';
 import 'package:subeya/src/presentation/widgets/DefaultIconBack.dart';
 import 'package:subeya/src/presentation/widgets/DefaultTextField.dart';
 
@@ -37,6 +38,41 @@ class ProfileUpdateContent extends StatelessWidget {
     );
   }
 
+  Widget _imageUser(BuildContext context) {
+    return GestureDetector(
+      onTap:
+          () => {
+            GalleryOrPhotsDialog(
+              context,
+              () {
+                context.read<ProfileUpdateBloc>().add(PickImage());
+              },
+              () {
+                context.read<ProfileUpdateBloc>().add(TakePhoto());
+              },
+            ),
+          },
+      child: Container(
+        width: 115,
+        margin: EdgeInsets.only(top: 15.0, bottom: 15.0),
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: ClipOval(
+            child:
+                states.imageFile != null
+                    ? Image.file(states.imageFile!, fit: BoxFit.cover)
+                    : FadeInImage.assetNetwork(
+                      image: 'https://i.postimg.cc/5NyPJLjf/BANNER-png-3.png',
+                      placeholder: 'assets/img/user_image.png',
+                      fit: BoxFit.cover,
+                      fadeInDuration: Duration(milliseconds: 1),
+                    ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _cardUserInfo(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -49,21 +85,7 @@ class ProfileUpdateContent extends StatelessWidget {
           key: states.formKeyUpdate,
           child: Column(
             children: [
-              Container(
-                width: 115,
-                margin: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: ClipOval(
-                    child: FadeInImage.assetNetwork(
-                      image: 'https://i.postimg.cc/5NyPJLjf/BANNER-png-3.png',
-                      placeholder: 'assets/img/user_image.png',
-                      fit: BoxFit.cover,
-                      fadeInDuration: Duration(milliseconds: 1),
-                    ),
-                  ),
-                ),
-              ),
+              _imageUser(context),
               DefaultTextField(
                 text: 'Nombre',
                 icon: Icons.person,
@@ -112,7 +134,7 @@ class ProfileUpdateContent extends StatelessWidget {
                 },
                 backgrooundColor: Colors.grey[200],
               ),
-          
+
               // Text('${user?.name ?? ''} ${user?.lastname ?? ''}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
               // Text(user?.email ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),
               // Text(user?.phone ?? '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey[600]),),

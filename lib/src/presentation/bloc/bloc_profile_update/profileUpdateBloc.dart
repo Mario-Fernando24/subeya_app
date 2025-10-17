@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/domain/models/user_model.dart';
 import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
@@ -72,6 +74,38 @@ class ProfileUpdateBloc extends Bloc<ProfileUpdateEvent, ProfileUpdateState> {
       response.user!.image = event.user.image;
       await authusecases.saveUseSessionUseCase.run(response);
 
+    });
+
+    on<PickImage>((event, emit) async {
+      // Lógica para seleccionar una imagen de la galería
+      print('Seleccionar imagen de la galería');
+      final ImagePicker _picker = ImagePicker();
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        print('Imagen seleccionada: ${image.path}');
+        emit(state.copyWith(
+          imageFile: File(image.path),
+          formKeyUpdate: formkeyUpdate
+        ));
+      } else {
+        print('No se seleccionó ninguna imagen.');
+      }
+    });
+
+    on<TakePhoto>((event, emit) async {
+      // Lógica para tomar una foto con la cámara
+      print('Tomar foto con la cámara');
+      final ImagePicker _picker = ImagePicker();
+      final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+      if (photo != null) {
+        print('Foto tomada: ${photo.path}');
+        emit(state.copyWith(
+          imageFile: File(photo.path),
+          formKeyUpdate: formkeyUpdate
+        ));
+      } else {
+        print('No se tomó ninguna foto.');
+      }
     });
 
     on<FormUpdateSubmit>((event, emit) async {

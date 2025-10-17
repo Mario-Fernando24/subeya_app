@@ -31,6 +31,11 @@ class UpdateUserSession extends ProfileUpdateEvent{
   UpdateUserSession({ required this.user });
 }
 
+// Eventos para la selección de imagen
+class PickImage extends ProfileUpdateEvent{}
+// Evento para tomar foto con la cámara
+class TakePhoto extends ProfileUpdateEvent{}
+
 class FormUpdateSubmit extends ProfileUpdateEvent{}
 
 
