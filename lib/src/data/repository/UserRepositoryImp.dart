@@ -14,9 +14,16 @@ class UserRepositoryImp implements  UserRepository {
   
   @override
   Future<Resource<AuthResponse>> update(int id, User user, File? imageFile) {
-    return userService.update(id, user);
+    if(imageFile != null){
+      return userService.updateWithImage(id, user, imageFile);
+    } else {
+      return userService.update(id, user);
+    }
+  }
   }
 
 
-}
+
+
+
   

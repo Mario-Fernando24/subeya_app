@@ -130,7 +130,7 @@ class ProfileUpdateBloc extends Bloc<ProfileUpdateEvent, ProfileUpdateState> {
         final response = await usersUseCase.updateUserUseCase.run(
           state.id,
           user,
-          null,
+          state.imageFile,
         );
 
         print('Respuesta del update: '+response.toString());
