@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: blocProviders,
       child: MaterialApp(
+        // FToastBuilder sirves para mostrar toasts personalizados en la aplicación 
         builder: FToastBuilder(),
         debugShowCheckedModeBanner: false,
         title: 'taxi subeya',
