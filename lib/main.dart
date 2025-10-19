@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'taxi subeya',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurpleAccent),
+          //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurpleAccent),
         ),
         initialRoute: 'login',
         routes: {

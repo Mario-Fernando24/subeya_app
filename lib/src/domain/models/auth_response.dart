@@ -20,12 +20,14 @@ class AuthResponse {
     });
 
     factory AuthResponse.fromJson(Map<String, dynamic> json) => AuthResponse(
-        user: User.fromJson(json["user"]),
+        //user: User.fromJson(json["user"]),
+        user: json["user"] != null ? User.fromJson(json["user"]) : null,
         accessToken: json["access_token"],
     );
 
     Map<String, dynamic> toJson() => {
-        "user": user!.toJson(),
-        "access_token": accessToken,
+       // "user": user!.toJson(),
+       "user": user != null ? user!.toJson() : null,
+       "access_token": accessToken,
     };
 }

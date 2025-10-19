@@ -65,7 +65,7 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
                 aspectRatio: 1,
                 child: ClipOval(
                  child: FadeInImage.assetNetwork(
-                    image: 'https://i.postimg.cc/5NyPJLjf/BANNER-png-3.png',
+                    image: widget.user?.image ?? '',
                     placeholder: 'assets/img/user_image.png',
                     fit: BoxFit.cover,
                     fadeInDuration: Duration(milliseconds: 1)

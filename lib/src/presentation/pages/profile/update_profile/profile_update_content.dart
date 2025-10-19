@@ -62,7 +62,7 @@ class ProfileUpdateContent extends StatelessWidget {
                 states.imageFile != null
                     ? Image.file(states.imageFile!, fit: BoxFit.cover)
                     : FadeInImage.assetNetwork(
-                      image: 'https://i.postimg.cc/5NyPJLjf/BANNER-png-3.png',
+                      image: user!.image!,
                       placeholder: 'assets/img/user_image.png',
                       fit: BoxFit.cover,
                       fadeInDuration: Duration(milliseconds: 1),
