@@ -4,6 +4,7 @@ import 'package:subeya/main.dart';
 import 'package:subeya/src/presentation/bloc/bloc_client_home/ClientHomeBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_client_home/ClientHomeEvent.dart';
 import 'package:subeya/src/presentation/bloc/bloc_client_home/ClientHomeState.dart';
+import 'package:subeya/src/presentation/pages/client/mapBuscador/mapBuscadorPage.dart';
 import 'package:subeya/src/presentation/pages/profile/info/profileInfoPage.dart';
 
 class Clienthomepage extends StatefulWidget {
@@ -14,7 +15,10 @@ class Clienthomepage extends StatefulWidget {
 }
 
 class _ClienthomepageState extends State<Clienthomepage> {
-  List<Widget> pageList = [ProfileInfoPage()];
+  List<Widget> pageList = [
+    ClientMapBuscador(),
+    ProfileInfoPage()
+    ];
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +51,9 @@ class _ClienthomepageState extends State<Clienthomepage> {
                     style: TextStyle(color: Colors.white, fontSize: 24),
                   ),
                 ),
-                ListTile(
+                 ListTile(
                   leading: Icon(Icons.person),
-                  title: Text('Perfil de usuario'),
+                  title: Text('Mapa de busqueda'),
                   selected: state.pageIndex == 0,
                   onTap: () {
                     context.read<ClientHomeBloc>().add(
@@ -58,6 +62,18 @@ class _ClienthomepageState extends State<Clienthomepage> {
                     Navigator.pop(context); // Close the drawer
                   },
                 ),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text('Perfil de usuario'),
+                  selected: state.pageIndex == 1,
+                  onTap: () {
+                    context.read<ClientHomeBloc>().add(
+                      ChangeDrawerIndex(index: 1),
+                    );
+                    Navigator.pop(context); // Close the drawer
+                  },
+                ),
+               
                  ListTile(
                   leading: Icon(Icons.logout),
                   title: Text('Salir'),
