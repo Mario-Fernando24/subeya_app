@@ -63,13 +63,18 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
               margin: EdgeInsets.only(top: 15.0, bottom: 15.0),
               child: AspectRatio(
                 aspectRatio: 1,
-                child: ClipOval(
-                 child: FadeInImage.assetNetwork(
-                    image: widget.user?.image ?? '',
-                    placeholder: 'assets/img/user_image.png',
-                    fit: BoxFit.cover,
-                    fadeInDuration: Duration(milliseconds: 1)
-                  ),  
+                 child: ClipOval(
+                  child: (widget.user?.image != null && widget.user!.image!.isNotEmpty)
+                      ? FadeInImage.assetNetwork(
+                          image: widget.user!.image!,
+                          placeholder: 'assets/img/user_image.png',
+                          fit: BoxFit.cover,
+                          fadeInDuration: const Duration(milliseconds: 1),
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Image.asset('assets/img/user_image.png', fit: BoxFit.cover);
+                          },
+                        )
+                      : Image.asset('assets/img/user_image.png', fit: BoxFit.cover),
                 ),
                 ),
             ),
