@@ -44,7 +44,6 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
        )
       );
 
-
     });
 
     on<ChangeMapCameraPosition>((event, emit) async {
@@ -53,7 +52,7 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
         CameraUpdate.newCameraPosition(
           CameraPosition(
             target: LatLng(event.lat, event.lng),
-            zoom: 13,
+            zoom: 14,
             bearing: 0,
           ),
         ),
