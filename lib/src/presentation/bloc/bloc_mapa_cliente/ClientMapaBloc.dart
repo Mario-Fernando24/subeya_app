@@ -21,11 +21,30 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
     on<FindPosition>((event, emit) async {
       Position position = await geolocatorUseCase.findPositionUsecase.run();
 
-      emit(state.copyWith(position: position, controller: controller));
 
       add(ChangeMapCameraPosition(lat: position.latitude, lng: position.longitude));
-      print("Latitud::::: ${position.latitude} Longitud::::: ${position.longitude}",
+      BitmapDescriptor imageMarkets = await geolocatorUseCase.createmarketUsecase.run('assets/img/location_home_r.png');
+
+      print("mario fernando munoz");
+      print(imageMarkets);
+      print("mario fernando munoz");
+
+      Marker marker = await geolocatorUseCase.getMarkerUsecase.run(
+        'MyLocation',position.latitude, position.longitude,'Mi posición','',imageMarkets
       );
+
+
+      print("Latitud::::: ${position.latitude} Longitud::::: ${position.longitude}");
+
+      emit(
+        state.copyWith(
+         position: position,
+         markers: { marker.markerId: marker } ,
+         controller: controller,
+       )
+      );
+
+
     });
 
     on<ChangeMapCameraPosition>((event, emit) async {

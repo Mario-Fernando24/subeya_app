@@ -40,6 +40,7 @@ class _ClientMapBuscadorState extends State<ClientMapBuscador> {
           return GoogleMap(
             mapType: MapType.normal, // Tipo de mapa: satélite + etiquetas
             initialCameraPosition: _kGooglePlex, // Posición inicial
+            markers: Set<Marker>.of(state.markers.values),
             onMapCreated: (GoogleMapController controller) {
               // Se completa el controlador cuando el mapa se carga
              state.controller!.complete(controller);
