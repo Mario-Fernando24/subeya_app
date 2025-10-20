@@ -20,6 +20,6 @@ List<BlocProvider> blocProviders = [
    BlocProvider<ClientHomeBloc>(create: (context) => ClientHomeBloc(locator<Authusecases>())),
    BlocProvider<ProfileInfoBloc>(create: (context) => ProfileInfoBloc(locator<Authusecases>())),
    BlocProvider<ProfileUpdateBloc>(create: (context) => ProfileUpdateBloc(locator<UsersUseCase>(), locator<Authusecases>())),
-   BlocProvider<ClientMapaBloc>(create: (context) => ClientMapaBloc(locator<GeolocatorUseCase>())..add(FindPosition())),
+   BlocProvider<ClientMapaBloc>(create: (context) => ClientMapaBloc(locator<GeolocatorUseCase>())..add(ClientMapInicializarEvento())),
 
 ];
