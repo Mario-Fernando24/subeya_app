@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente/ClientMapaBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente/ClientMapaState.dart';
 
 class ClientMapBuscador extends StatefulWidget {
   const ClientMapBuscador({super.key});
@@ -31,17 +34,21 @@ class _ClientMapBuscadorState extends State<ClientMapBuscador> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
-      body: GoogleMap(
-        mapType: MapType.normal, // Tipo de mapa: satélite + etiquetas
-        initialCameraPosition: _kGooglePlex, // Posición inicial
-        onMapCreated: (GoogleMapController controller) {
-          // Se completa el controlador cuando el mapa se carga
-          _controller.complete(controller);
+      body: BlocBuilder<ClientMapaBloc, ClientMapaState>(
+        builder: (context, state) {
+          return GoogleMap(
+            mapType: MapType.normal, // Tipo de mapa: satélite + etiquetas
+            initialCameraPosition: _kGooglePlex, // Posición inicial
+            onMapCreated: (GoogleMapController controller) {
+              // Se completa el controlador cuando el mapa se carga
+              _controller.complete(controller);
+            },
+            myLocationEnabled:
+                false, // Mostrar ubicación del usuario (requiere permisos)
+            zoomControlsEnabled: true, // Mostrar botones de zoom
+            compassEnabled: true, // Mostrar brújula
+          );
         },
-        myLocationEnabled: false, // Mostrar ubicación del usuario (requiere permisos)
-        zoomControlsEnabled: true, // Mostrar botones de zoom
-        compassEnabled: true, // Mostrar brújula
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake, // Acción del botón
@@ -55,8 +62,6 @@ class _ClientMapBuscadorState extends State<ClientMapBuscador> {
   // Método para mover la cámara con animación a otra posición
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(
-      CameraUpdate.newCameraPosition(_kLake),
-    );
+    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }

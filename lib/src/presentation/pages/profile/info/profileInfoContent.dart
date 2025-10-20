@@ -35,7 +35,11 @@ class _ProfileInfoContentState extends State<ProfileInfoContent> {
             _headerProfile(),
             Spacer(),
             _actionProfile('Editar Perfil', Icons.edit, () {
-              Navigator.pushNamed(context, 'profile/update', arguments: widget.user);
+
+              print("PPPPPPPPPPPPPPPPPP");
+              print(widget.user!.toJson());
+              print("PPPPPPPPPPPPPPPPPP");
+             Navigator.pushNamed(context, 'profile/update', arguments: widget.user);
             }),
             _actionProfile('Cerrar sesion', Icons.power_settings_new, () {
               print('Cerrar sesion');

@@ -6,6 +6,8 @@ import 'package:subeya/src/presentation/bloc/bloc_client_home/ClientHomeEvent.da
 import 'package:subeya/src/presentation/bloc/bloc_client_home/ClientHomeState.dart';
 import 'package:subeya/src/presentation/pages/client/mapBuscador/mapBuscadorPage.dart';
 import 'package:subeya/src/presentation/pages/profile/info/profileInfoPage.dart';
+import 'package:subeya/src/presentation/themes/app_colors.dart';
+import 'package:subeya/src/presentation/themes/app_text_styles.dart';
 
 class Clienthomepage extends StatefulWidget {
   const Clienthomepage({super.key});
@@ -48,12 +50,14 @@ class _ClienthomepageState extends State<Clienthomepage> {
                   ),
                   child: Text(
                     'Menu Cliente',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
+                    style: AppTextStyles.titleWhite,
                   ),
+
+                  
                 ),
                  ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text('Mapa de busqueda'),
+                  leading: Icon(Icons.person, color: AppColors.black),
+                  title: Text('Mapa de busqueda', style: AppTextStyles.subtitle,),
                   selected: state.pageIndex == 0,
                   onTap: () {
                     context.read<ClientHomeBloc>().add(
@@ -63,8 +67,8 @@ class _ClienthomepageState extends State<Clienthomepage> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text('Perfil de usuario'),
+                  leading: Icon(Icons.person, color: AppColors.black),
+                  title: Text('Perfil de usuario',style: AppTextStyles.subtitle,),
                   selected: state.pageIndex == 1,
                   onTap: () {
                     context.read<ClientHomeBloc>().add(
@@ -75,8 +79,8 @@ class _ClienthomepageState extends State<Clienthomepage> {
                 ),
                
                  ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text('Salir'),
+                  leading: Icon(Icons.logout, color: AppColors.black),
+                  title: Text('Salir',style: AppTextStyles.subtitle,),
                   onTap: () {
                     context.read<ClientHomeBloc>().add(Logout());
                     Navigator.pushAndRemoveUntil(context, 
