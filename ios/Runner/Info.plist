@@ -49,5 +49,18 @@
 	<string>Esta aplicación requiere acceso a la galeria de fotos</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Esta aplicación requiere acceso a la camara</string>
+
+	 <!-- Permiso para usar la ubicación solo mientras la app está en uso -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Esta aplicación necesita acceder a tu ubicación mientras la usas.</string>
+
+	<!-- (Opcional) Permiso para usar la ubicación siempre -->
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Esta aplicación necesita acceder a tu ubicación incluso cuando no está en uso.</string>
+
+	<!-- (Opcional) Permiso para ubicación en segundo plano -->
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Esta aplicación utiliza tu ubicación para mejorar el servicio, incluso cuando está en segundo plano.</string>
+
 </dict>
 </plist>

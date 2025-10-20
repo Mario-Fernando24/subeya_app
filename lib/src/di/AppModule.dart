@@ -3,9 +3,11 @@ import 'package:subeya/src/data/dataSource/local/sharefPref.dart';
 import 'package:subeya/src/data/dataSource/remote/services/AuthServices.dart';
 import 'package:subeya/src/data/dataSource/remote/services/UserService.dart';
 import 'package:subeya/src/data/repository/AuthRepositoryImp.dart';
+import 'package:subeya/src/data/repository/GeolocartorRepositoryImpl.dart';
 import 'package:subeya/src/data/repository/UserRepositoryImp.dart';
 import 'package:subeya/src/domain/models/auth_response.dart';
 import 'package:subeya/src/domain/repository/AuthRepository.dart';
+import 'package:subeya/src/domain/repository/GeolocatorRepository.dart';
 import 'package:subeya/src/domain/repository/UserRepository.dart';
 import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:subeya/src/domain/useCases/auth/LogoutUseSessionUseCase.dart';
@@ -13,6 +15,10 @@ import 'package:subeya/src/domain/useCases/auth/GetUseSessionUseCase.dart';
 import 'package:subeya/src/domain/useCases/auth/LoginUseCase.dart';
 import 'package:subeya/src/domain/useCases/auth/RegisterUseCases.dart';
 import 'package:subeya/src/domain/useCases/auth/SaveUseSessionUseCase.dart';
+import 'package:subeya/src/domain/useCases/geolocator/CreateMarketUseCase.dart';
+import 'package:subeya/src/domain/useCases/geolocator/FindPositionUseCase.dart';
+import 'package:subeya/src/domain/useCases/geolocator/GeolocatorUseCase.dart';
+import 'package:subeya/src/domain/useCases/geolocator/getMarkerUseCase.dart';
 import 'package:subeya/src/domain/useCases/users/UpdateUserUseCase.dart';
 import 'package:subeya/src/domain/useCases/users/UsersUseCase.dart';
 
@@ -51,6 +57,10 @@ abstract class AppModule {
   UserRepository get userRepository => UserRepositoryImp(userservice);
 
   @injectable
+  GeolocatorRepository get geolocatorRepository => Geolocartorrepositoryimpl();
+
+
+  @injectable
   Authusecases get authusecases => Authusecases(
     loginUseCase: LoginUseCase(authrepository),
     registerUseCase: Registerusecases(authrepository),
@@ -63,6 +73,13 @@ abstract class AppModule {
   @injectable
   UsersUseCase get useCaseUse => UsersUseCase(
     updateUserUseCase: UpdateUserUseCase(userRepository),
+  );  
+
+  @injectable
+  GeolocatorUseCase get geolocatorUseCase => GeolocatorUseCase(
+    findPositionUsecase: FindPositionUsecase(geolocatorRepository),
+    createmarketUsecase: CreatemarketUsecase(geolocatorRepository),
+    getMarkerUsecase: GetMarkerUsecase(geolocatorRepository)
   );  
 
 
