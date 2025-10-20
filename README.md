@@ -43,7 +43,7 @@ lib/
 │   │   └── usecases/
 │   ├── presentation/
 │   │   ├── bloc/
-│   │   │   ├── cubits/
+│   │   │   ├── bloc/
 │   │   │   ├── events/
 │   │   │   ├── states/
 │   │   │   └── blocs/
