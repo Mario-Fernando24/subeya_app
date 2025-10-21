@@ -1,8 +1,9 @@
 abstract class  ClientMapaEvent {}
 
+class ClientMapInicializarEvento extends ClientMapaEvent{}
+
 class FindPosition extends ClientMapaEvent{}
 
-class ClientMapInicializarEvento extends ClientMapaEvent{}
 
 class ChangeMapCameraPosition extends ClientMapaEvent{
   final double lat;

@@ -9,30 +9,29 @@ import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente/ClientMapaState.d
 
 class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
   GeolocatorUseCase geolocatorUseCase;
-  // Controlador del mapa (permite mover la cámara, añadir marcadores, etc.)
-  final Completer<GoogleMapController> controller =
-      Completer<GoogleMapController>();
+  
 
   ClientMapaBloc(this.geolocatorUseCase) : super(ClientMapaState()) {
-    on<ClientMapaEvent>((event, emit) {
+    on<ClientMapInicializarEvento>((event, emit) {
+      // Controlador del mapa (permite mover la cámara, añadir marcadores, etc.)
+  final Completer<GoogleMapController> controller = Completer<GoogleMapController>();
       emit(state.copyWith(controller: controller));
     });
 
     on<FindPosition>((event, emit) async {
       Position position = await geolocatorUseCase.findPositionUsecase.run();
-
-
       add(ChangeMapCameraPosition(lat: position.latitude, lng: position.longitude));
+
+
       BitmapDescriptor imageMarkets = await geolocatorUseCase.createmarketUsecase.run('assets/img/location_home_r.png');
 
       print("mario fernando munoz");
-      print(imageMarkets);
+      print(imageMarkets.toJson());
       print("mario fernando munoz");
 
       Marker marker = await geolocatorUseCase.getMarkerUsecase.run(
         'MyLocation',position.latitude, position.longitude,'Mi posición','',imageMarkets
       );
-
 
       print("Latitud::::: ${position.latitude} Longitud::::: ${position.longitude}");
 
@@ -40,7 +39,7 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
         state.copyWith(
          position: position,
          markers: { marker.markerId: marker } ,
-         controller: controller,
+        //  controller: controller,
        )
       );
 
@@ -48,7 +47,7 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
 
     on<ChangeMapCameraPosition>((event, emit) async {
       GoogleMapController contro = await state.controller!.future;
-      contro.animateCamera(
+     await contro.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
             target: LatLng(event.lat, event.lng),
