@@ -23,12 +23,15 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
       add(ChangeMapCameraPosition(lat: position.latitude, lng: position.longitude));
 
 
-      BitmapDescriptor imageMarkets = await geolocatorUseCase.createmarketUsecase.run('assets/img/location_home_r.png');
+      BitmapDescriptor imageMarkets = await geolocatorUseCase.createmarketUsecase.run('assets/img/location_home_4.png');
 
       print("mario fernando munoz");
       print(imageMarkets.toJson());
       print("mario fernando munoz");
 
+      print('___________________________________________');
+      print(position.toJson());
+      print('___________________________________________');
       Marker marker = await geolocatorUseCase.getMarkerUsecase.run(
         'MyLocation',position.latitude, position.longitude,'Mi posición','',imageMarkets
       );
