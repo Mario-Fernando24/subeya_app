@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:subeya/src/domain/models/PlaceMarkData.dart';
 import 'package:subeya/src/domain/useCases/geolocator/GeolocatorUseCase.dart';
 import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente/ClientMapaEvent.dart';
 import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente/ClientMapaState.dart';
@@ -59,6 +60,21 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
           ),
         ),
       );
+    });
+
+    on<CameraPositionChangedEvent>((event, emit) async {
+      
+      emit(state.copyWith(cameraPosition: event.cameraPosition));
+    });
+
+    on<OnCameraIdleEvent>((event, emit) async {
+      // obtener información del lugar basado en la posición de la cámara del mapa
+      PlacemarkData ? placeData = await geolocatorUseCase.getplacemarkDataUsecase.run(state.cameraPosition!);
+  
+  print("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+  print(placeData!.address);
+  print("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+      emit(state.copyWith(placemarkData: placeData));
     });
   }
 }

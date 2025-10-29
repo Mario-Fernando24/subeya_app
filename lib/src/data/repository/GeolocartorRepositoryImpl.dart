@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:subeya/src/domain/models/PlaceMarkData.dart';
 import 'package:subeya/src/domain/repository/GeolocatorRepository.dart';
+import 'package:geocoding/geocoding.dart';
 
 
 class Geolocartorrepositoryimpl implements GeolocatorRepository {
@@ -72,5 +74,29 @@ class Geolocartorrepositoryimpl implements GeolocatorRepository {
       );
 
       return marker;
+  }
+
+ // esta función obtiene información del lugar basado en la posición de la cámara del mapa
+  @override
+  Future<PlacemarkData?> getPlaceData(CameraPosition position)async {
+     double lat = position.target.latitude;
+     double lng = position.target.longitude;
+     List<Placemark> placeMarksList = await placemarkFromCoordinates(lat, lng);
+     print("llegoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" );
+     print(lat);
+     print(lng);
+     print(placeMarksList);
+
+     if(placeMarksList!=null && placeMarksList.isNotEmpty){
+      if(placeMarksList.length>0){
+        Placemark place = placeMarksList[0];
+        String address = " ${place.street}, ${place.subAdministrativeArea} ${place.country}, ${place.administrativeArea}";
+        PlacemarkData placemarkData = PlacemarkData(address: address, lat: lat, lng: lng);
+        return placemarkData;
+      }
+     }
+
+     return null;
+
   }
 }

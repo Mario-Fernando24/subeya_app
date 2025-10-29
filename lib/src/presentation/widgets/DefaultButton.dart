@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class DefaultButton extends StatelessWidget {
 
   Function() onPressed;
@@ -8,7 +9,7 @@ class DefaultButton extends StatelessWidget {
   Color textColor;
    EdgeInsetsGeometry margin;
 
-   DefaultButton({
+   DefaultButton({super.key, 
     required this.onPressed,
     required this.text,
     this.color = Colors.white,

@@ -44,9 +44,20 @@ class _ClientMapBuscadorState extends State<ClientMapBuscador> {
             children: [
               GoogleMap(
                 mapType: MapType.normal,
-                initialCameraPosition: _kGooglePlex,
+                initialCameraPosition: state.cameraPosition ?? _kGooglePlex,
                 myLocationEnabled: true,
-                
+                onCameraMove: (CameraPosition cameraPosition) {
+                  print("CAMERA MOVINGGGGGGGGGGGGG");
+                  context.read<ClientMapaBloc>().add(
+                        CameraPositionChangedEvent(
+                            cameraPosition: cameraPosition),
+                      );
+                },
+                onCameraIdle: () async {
+                  // Aquí puedes manejar eventos cuando la cámara se detiene
+                  context.read<ClientMapaBloc>().add(OnCameraIdleEvent());
+                  lugarRecogida.text = state.placemarkData?.address ?? '';
+                },
                 myLocationButtonEnabled: true,
                 markers: Set<Marker>.of(state.markers.values),
                 onMapCreated: (GoogleMapController controller) {
@@ -68,6 +79,13 @@ class _ClientMapBuscadorState extends State<ClientMapBuscador> {
                         lugarRecogida, 
                         'Recoger en', (
                         Prediction prediction) {
+                          if(prediction != null){
+                            context.read<ClientMapaBloc>().add(ChangeMapCameraPosition(
+                              lat: double.parse(prediction.lat!),
+                              lng: double.parse(prediction.lng!),
+                            ));
+                          }
+                          
                         print(
                           'latitud: ${prediction.lat}, longitud: ${prediction.lng}',
                         );
