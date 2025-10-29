@@ -92,9 +92,22 @@ class _ClientMapBuscadorState extends State<ClientMapBuscador> {
                   ),
                 ),
               ),
+              _iconMyLocation()
             ],
           );
         },
+      ),
+    );
+  }
+
+  Widget _iconMyLocation() {
+    return Container(
+      alignment: Alignment.center,
+      margin: EdgeInsets.only(bottom: 20),
+      child: Image.asset(
+        'assets/img/location_blue.png',
+        width: 65,
+        height: 65,
       ),
     );
   }
