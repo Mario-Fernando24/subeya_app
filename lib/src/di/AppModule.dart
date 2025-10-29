@@ -18,6 +18,7 @@ import 'package:subeya/src/domain/useCases/auth/SaveUseSessionUseCase.dart';
 import 'package:subeya/src/domain/useCases/geolocator/CreateMarketUseCase.dart';
 import 'package:subeya/src/domain/useCases/geolocator/FindPositionUseCase.dart';
 import 'package:subeya/src/domain/useCases/geolocator/GeolocatorUseCase.dart';
+import 'package:subeya/src/domain/useCases/geolocator/GetPlaceMarkDataUseCase.dart';
 import 'package:subeya/src/domain/useCases/geolocator/getMarkerUseCase.dart';
 import 'package:subeya/src/domain/useCases/users/UpdateUserUseCase.dart';
 import 'package:subeya/src/domain/useCases/users/UsersUseCase.dart';
@@ -79,7 +80,8 @@ abstract class AppModule {
   GeolocatorUseCase get geolocatorUseCase => GeolocatorUseCase(
     findPositionUsecase: FindPositionUsecase(geolocatorRepository),
     createmarketUsecase: CreatemarketUsecase(geolocatorRepository),
-    getMarkerUsecase: GetMarkerUsecase(geolocatorRepository)
+    getMarkerUsecase: GetMarkerUsecase(geolocatorRepository),
+    getplacemarkDataUsecase: GetplacemarkDataUsecase(geolocatorRepository)
   );  
 
 

@@ -3,36 +3,39 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:subeya/src/domain/models/PlaceMarkData.dart';
 import 'package:subeya/src/domain/useCases/geolocator/GeolocatorUseCase.dart';
 import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente/ClientMapaEvent.dart';
 import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente/ClientMapaState.dart';
 
 class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
   GeolocatorUseCase geolocatorUseCase;
-  // Controlador del mapa (permite mover la cámara, añadir marcadores, etc.)
-  final Completer<GoogleMapController> controller =
-      Completer<GoogleMapController>();
+  
 
   ClientMapaBloc(this.geolocatorUseCase) : super(ClientMapaState()) {
-    on<ClientMapaEvent>((event, emit) {
+    on<ClientMapInicializarEvento>((event, emit) {
+      // Controlador del mapa (permite mover la cámara, añadir marcadores, etc.)
+  final Completer<GoogleMapController> controller = Completer<GoogleMapController>();
       emit(state.copyWith(controller: controller));
     });
 
     on<FindPosition>((event, emit) async {
       Position position = await geolocatorUseCase.findPositionUsecase.run();
-
-
       add(ChangeMapCameraPosition(lat: position.latitude, lng: position.longitude));
-      BitmapDescriptor imageMarkets = await geolocatorUseCase.createmarketUsecase.run('assets/img/location_home_r.png');
+
+
+      BitmapDescriptor imageMarkets = await geolocatorUseCase.createmarketUsecase.run('assets/img/location_home_4.png');
 
       print("mario fernando munoz");
-      print(imageMarkets);
+      print(imageMarkets.toJson());
       print("mario fernando munoz");
 
+      print('___________________________________________');
+      print(position.toJson());
+      print('___________________________________________');
       Marker marker = await geolocatorUseCase.getMarkerUsecase.run(
         'MyLocation',position.latitude, position.longitude,'Mi posición','',imageMarkets
       );
-
 
       print("Latitud::::: ${position.latitude} Longitud::::: ${position.longitude}");
 
@@ -40,7 +43,7 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
         state.copyWith(
          position: position,
          markers: { marker.markerId: marker } ,
-         controller: controller,
+        //  controller: controller,
        )
       );
 
@@ -48,15 +51,30 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
 
     on<ChangeMapCameraPosition>((event, emit) async {
       GoogleMapController contro = await state.controller!.future;
-      contro.animateCamera(
+     await contro.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
             target: LatLng(event.lat, event.lng),
-            zoom: 14,
+            zoom: 16,
             bearing: 0,
           ),
         ),
       );
+    });
+
+    on<CameraPositionChangedEvent>((event, emit) async {
+      
+      emit(state.copyWith(cameraPosition: event.cameraPosition));
+    });
+
+    on<OnCameraIdleEvent>((event, emit) async {
+      // obtener información del lugar basado en la posición de la cámara del mapa
+      PlacemarkData ? placeData = await geolocatorUseCase.getplacemarkDataUsecase.run(state.cameraPosition!);
+  
+  print("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+  print(placeData!.address);
+  print("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+      emit(state.copyWith(placemarkData: placeData));
     });
   }
 }

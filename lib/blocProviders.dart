@@ -6,7 +6,6 @@ import 'package:subeya/src/domain/useCases/users/UsersUseCase.dart';
 import 'package:subeya/src/presentation/bloc/bloc_login/LoginBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_login/LoginEvent.dart';
 import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente/ClientMapaBloc.dart';
-import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente/ClientMapaEvent.dart';
 import 'package:subeya/src/presentation/bloc/bloc_profile_info/profileInfoBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_profile_update/profileUpdateBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_register/RegisterBloc.dart';
@@ -20,6 +19,6 @@ List<BlocProvider> blocProviders = [
    BlocProvider<ClientHomeBloc>(create: (context) => ClientHomeBloc(locator<Authusecases>())),
    BlocProvider<ProfileInfoBloc>(create: (context) => ProfileInfoBloc(locator<Authusecases>())),
    BlocProvider<ProfileUpdateBloc>(create: (context) => ProfileUpdateBloc(locator<UsersUseCase>(), locator<Authusecases>())),
-   BlocProvider<ClientMapaBloc>(create: (context) => ClientMapaBloc(locator<GeolocatorUseCase>())..add(ClientMapInicializarEvento())),
+   BlocProvider<ClientMapaBloc>(create: (context) => ClientMapaBloc(locator<GeolocatorUseCase>())),
 
 ];
