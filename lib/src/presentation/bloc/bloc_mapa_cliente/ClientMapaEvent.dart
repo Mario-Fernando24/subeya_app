@@ -28,7 +28,29 @@ class CameraPositionChangedEvent extends ClientMapaEvent{
   
 }
 
-class OnCameraIdleEvent extends ClientMapaEvent{
+class OnCameraIdleEvent extends ClientMapaEvent{}
 
-}
+class OnAutoCompleteLugarRecogida extends ClientMapaEvent{
+   double lat;
+   double lng;
+   String description;
+
+  OnAutoCompleteLugarRecogida({
+    required this.lat,
+    required this.lng,
+    required this.description,
+  });
+} 
+
+class OnAutoCompleteLugarDestino extends ClientMapaEvent{
+   double lat;
+   double lng;
+   String description;
+
+  OnAutoCompleteLugarDestino({
+    required this.lat,
+    required this.lng,
+    required this.description,
+  });
+} 
 
