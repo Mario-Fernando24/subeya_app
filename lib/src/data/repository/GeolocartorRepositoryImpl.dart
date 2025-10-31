@@ -79,14 +79,12 @@ class Geolocartorrepositoryimpl implements GeolocatorRepository {
  // esta función obtiene información del lugar basado en la posición de la cámara del mapa
   @override
   Future<PlacemarkData?> getPlaceData(CameraPosition position)async {
+
+    try { 
      double lat = position.target.latitude;
      double lng = position.target.longitude;
      List<Placemark> placeMarksList = await placemarkFromCoordinates(lat, lng);
-     //sprint("llegoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" );
-     //print(lat);
-     //print(lng);
-     //print(placeMarksList);
-
+   
      if(placeMarksList!=null && placeMarksList.isNotEmpty){
       if(placeMarksList.length>0){
         Placemark place = placeMarksList[0];
@@ -95,8 +93,10 @@ class Geolocartorrepositoryimpl implements GeolocatorRepository {
         return placemarkData;
       }
      }
-
+    } catch (e) {
+      print('error getPlaceData: $e');
      return null;
+    }
 
   }
 }
