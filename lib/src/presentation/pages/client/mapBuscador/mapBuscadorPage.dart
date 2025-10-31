@@ -56,8 +56,15 @@ class _ClientMapBuscadorState extends State<ClientMapBuscador> {
                 margin: EdgeInsets.only(bottom: 30),
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: DefaultButton(
-                  onPressed: ()=> Navigator.pushNamed(context, 'client/mapaReservado'),
-                  text: 'Regresar viaje'
+                  onPressed: ()=> Navigator.pushNamed(context, 'client/mapaReservado',
+                  arguments: {
+                    'lugarRecogidaLatLng': state.lugarRecogidaLatLng,
+                    'lugarDestinoLatLng': state.lugarDestinoLatLng,
+                    'lugarRecogidaText': state.lugarRecogidaText,
+                    'lugarDestinoText': state.lugarDestinoText,
+                  }
+                  ),
+                  text: 'REVISAR VIAJE'
                   ),
               )
             ],
@@ -73,6 +80,7 @@ class _ClientMapBuscadorState extends State<ClientMapBuscador> {
       initialCameraPosition: state.cameraPosition ?? _kGooglePlex,
       myLocationEnabled: true,
       onCameraMove: (CameraPosition cameraPosition) {
+        // actualizar la posición de la cámara en el estado del BLoC
         context.read<ClientMapaBloc>().add(
           CameraPositionChangedEvent(cameraPosition: cameraPosition),
         );
@@ -81,6 +89,15 @@ class _ClientMapBuscadorState extends State<ClientMapBuscador> {
         // Aquí puedes manejar eventos cuando la cámara se detiene
         context.read<ClientMapaBloc>().add(OnCameraIdleEvent());
         lugarRecogida.text = state.placemarkData?.address ?? '';
+        if(state.placemarkData != null){
+          context.read<ClientMapaBloc>().add(
+                OnAutoCompleteLugarRecogida(
+                    lat: state.placemarkData!.lat,
+                  lng: state.placemarkData!.lng,
+                  description: state.placemarkData!.address,
+                ),
+              );
+        }
       },
       myLocationButtonEnabled: true,
       markers: Set<Marker>.of(state.markers.values),
