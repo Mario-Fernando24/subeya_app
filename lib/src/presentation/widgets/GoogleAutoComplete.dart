@@ -24,7 +24,7 @@ class _GoogleAutoCompleteState extends State<GoogleAutoComplete> {
     return Container(
       height: 50,
       alignment: Alignment.topCenter,
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: GooglePlaceAutoCompleteTextField(
         textEditingController: widget.controller,
          boxDecoration: BoxDecoration(
@@ -41,9 +41,11 @@ class _GoogleAutoCompleteState extends State<GoogleAutoComplete> {
         googleAPIKey:"AIzaSyBNdhgYWo-JBxpcLQk1m5kutUa_LLPgGAc",
         inputDecoration: InputDecoration(
           hintText: widget.hintText,
-          hintStyle: TextStyle(color: Colors.black12),
+          hintStyle: TextStyle(color: Colors.black12, fontSize: 14),
           border: InputBorder.none,
           enabledBorder: InputBorder.none,
+           contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12), // 👈 controla la altura
+           isDense: true, // 👈 hace más compacto el campo
         ),
         debounceTime: 400,
         countries: ["co"],

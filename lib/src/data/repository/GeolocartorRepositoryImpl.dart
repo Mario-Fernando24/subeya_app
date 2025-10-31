@@ -82,10 +82,10 @@ class Geolocartorrepositoryimpl implements GeolocatorRepository {
      double lat = position.target.latitude;
      double lng = position.target.longitude;
      List<Placemark> placeMarksList = await placemarkFromCoordinates(lat, lng);
-     print("llegoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" );
-     print(lat);
-     print(lng);
-     print(placeMarksList);
+     //sprint("llegoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo" );
+     //print(lat);
+     //print(lng);
+     //print(placeMarksList);
 
      if(placeMarksList!=null && placeMarksList.isNotEmpty){
       if(placeMarksList.length>0){

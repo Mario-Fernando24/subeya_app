@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -55,7 +56,7 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
         CameraUpdate.newCameraPosition(
           CameraPosition(
             target: LatLng(event.lat, event.lng),
-            zoom: 16,
+            zoom: 14,
             bearing: 0,
           ),
         ),
@@ -71,10 +72,31 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
       // obtener información del lugar basado en la posición de la cámara del mapa
       PlacemarkData ? placeData = await geolocatorUseCase.getplacemarkDataUsecase.run(state.cameraPosition!);
   
-  print("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
-  print(placeData!.address);
-  print("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+  // print("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+  // print(placeData!.address);
+  // print("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
       emit(state.copyWith(placemarkData: placeData));
     });
+
+  on<OnAutoCompleteLugarRecogida>((event, emit) async {
+    LatLng latLng = LatLng(event.lat, event.lng);
+    emit(state.copyWith(
+      lugarRecogidaLatLng: latLng,
+      lugarRecogidaText: event.description
+      ));
+  });
+
+  on<OnAutoCompleteLugarDestino>((event, emit) async {
+    LatLng latLng = LatLng(event.lat, event.lng);
+    emit(state.copyWith(
+      lugarDestinoLatLng: latLng,
+      lugarDestinoText: event.description
+      ));
+  });
+
+
   }
+
+ 
+
 }

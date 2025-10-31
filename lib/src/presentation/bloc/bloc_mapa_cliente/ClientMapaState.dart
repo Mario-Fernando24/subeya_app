@@ -12,13 +12,21 @@ class ClientMapaState extends Equatable {
   final Map<MarkerId, Marker> markers;
   final CameraPosition ? cameraPosition;
   final PlacemarkData ? placemarkData;
+  final LatLng? lugarRecogidaLatLng;
+  final LatLng? lugarDestinoLatLng;
+  final String? lugarRecogidaText;
+  final String? lugarDestinoText ;
    
   ClientMapaState({
     this.position,
     this.controller,
     this.markers = const <MarkerId, Marker>{},
     this.cameraPosition,
-    this.placemarkData
+    this.placemarkData,
+    this.lugarRecogidaLatLng,
+    this.lugarDestinoLatLng,
+    this.lugarRecogidaText,
+    this.lugarDestinoText,
   });
 
   ClientMapaState copyWith({
@@ -27,6 +35,10 @@ class ClientMapaState extends Equatable {
     CameraPosition? cameraPosition,
     Map<MarkerId, Marker>? markers,
     PlacemarkData ? placemarkData,
+    LatLng? lugarRecogidaLatLng,
+    LatLng? lugarDestinoLatLng,
+    String? lugarRecogidaText,
+    String? lugarDestinoText,
     
   }){
     return ClientMapaState(
@@ -35,12 +47,16 @@ class ClientMapaState extends Equatable {
       markers: markers ?? this.markers,
       cameraPosition: cameraPosition ?? this.cameraPosition,
       placemarkData: placemarkData ?? this.placemarkData,
+      lugarRecogidaLatLng: lugarRecogidaLatLng ?? this.lugarRecogidaLatLng,
+      lugarDestinoLatLng: lugarDestinoLatLng ?? this.lugarDestinoLatLng,
+      lugarRecogidaText: lugarRecogidaText ?? this.lugarRecogidaText,
+      lugarDestinoText: lugarDestinoText ?? this.lugarDestinoText,
 
     );
   }
 
   @override
-  List<Object?> get props => [position, controller, markers, cameraPosition, placemarkData]; 
+  List<Object?> get props => [position, controller, markers, cameraPosition, placemarkData, lugarRecogidaLatLng, lugarDestinoLatLng, lugarRecogidaText, lugarDestinoText]; 
 
 
 }
