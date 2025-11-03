@@ -177,7 +177,8 @@ class _ClientMapReservaInfopageState extends State<ClientMapReservaInfopage> {
               zoom: 14,
             ),
         myLocationEnabled: true,
-        //markers: Set<Marker>.of(state.markers.values),
+        // para que se vean los marcadores
+        markers: Set<Marker>.of(state.markers.values),
         polylines: Set<Polyline>.of(state.polylines.values),
         onMapCreated: (GoogleMapController controller) {
           if (!state.controller!.isCompleted) {

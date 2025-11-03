@@ -12,18 +12,43 @@ class ClientMapaInfoBloc extends Bloc<ClientMapaInfoEvent, ClientMapaInfoState> 
 
   ClientMapaInfoBloc(this.geolocatorUseCase) : super(ClientMapaInfoState()) {
 
-    on<ClientMapInicializarEventoInfo>((event, emit) {
+    on<ClientMapInicializarEventoInfo>((event, emit)async {
+
+
       // Controlador del mapa (permite mover la cámara, añadir marcadores, etc.)
       final Completer<GoogleMapController> controller = Completer<GoogleMapController>();
+
+      
       emit(
         state.copyWith(
           controller: controller,
           lugarRecogidaLatLng: event.lugarInicialInfo,
           lugarDestinoLatLng: event.lugarDestinoInfo,
           lugarRecogidaText: event.descripcionLugarInicialInfo,
-          lugarDestinoText: event.descripcionLugarDestinoInfo
+          lugarDestinoText: event.descripcionLugarDestinoInfo,
           )
         );
+
+
+       BitmapDescriptor puntoInicialimageMarketsDescription = await geolocatorUseCase.createmarketUsecase.run('assets/img/pin_white.png');
+       BitmapDescriptor puntoDestinoimageMarketsDescription = await geolocatorUseCase.createmarketUsecase.run('assets/img/flag.png');
+
+       // ignore: unused_local_variable
+       Marker puntoInicialimageMarker = await geolocatorUseCase.getMarkerUsecase.run('Recogida',state.lugarRecogidaLatLng!.latitude,state.lugarRecogidaLatLng!.longitude,'Lugar de recogida','Debes permanecer aqui mientras llegue el conductor',puntoInicialimageMarketsDescription);
+       // ignore: unused_local_variable
+       Marker puntoDestinoimageMarker = await geolocatorUseCase.getMarkerUsecase.run('Destino',state.lugarDestinoLatLng!.latitude,state.lugarDestinoLatLng!.longitude,'Tu destino','',puntoDestinoimageMarketsDescription);
+
+
+      emit(
+        state.copyWith(
+          markers: {
+            puntoInicialimageMarker.markerId: puntoInicialimageMarker,
+            puntoDestinoimageMarker.markerId: puntoDestinoimageMarker,
+          }
+          )
+        );
+
+
     });
     // Evento para cambiar la posición de la cámara del mapa
     on<ChangeMapCameraPosition>((event, emit) async {
@@ -32,7 +57,7 @@ class ClientMapaInfoBloc extends Bloc<ClientMapaInfoEvent, ClientMapaInfoState> 
         CameraUpdate.newCameraPosition(
           CameraPosition(
             target: LatLng(event.lat, event.lng),
-            zoom: 14,
+            zoom: 13,
             bearing: 0,
           ),
         ),
