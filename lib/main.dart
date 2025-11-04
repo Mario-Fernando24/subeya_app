@@ -7,7 +7,9 @@ import 'package:subeya/src/presentation/pages/auth/register/RegisterPage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subeya/src/presentation/pages/client/home/ClientHomePage.dart';
 import 'package:subeya/src/presentation/pages/client/mapaReservaInfo/clientMapReservaInfoPage.dart';
+import 'package:subeya/src/presentation/pages/driver/home/DriveHomePage.dart';
 import 'package:subeya/src/presentation/pages/profile/update_profile/profile_update_page.dart';
+import 'package:subeya/src/presentation/pages/roles/rolesItems.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +39,10 @@ class MyApp extends StatelessWidget {
           'client/home': (BuildContext context) => Clienthomepage(),
           'profile/update': (BuildContext context) => ProfileUpdatePage(),
           'client/mapaReservado': (BuildContext context) => ClientMapReservaInfopage(),
+          //rutas conductor
+          'driver/home': (BuildContext context) => DriveHomePage(),
+          'screem/roles': (BuildContext context) => Rolesitems(),
+
         },
       ),
     );
