@@ -20,4 +20,9 @@ abstract class GeolocatorRepository {
   // 
   Future<PlacemarkData?> getPlaceData(CameraPosition position);
 
+  Future<List<LatLng>> getPolylineCoordinates(
+    LatLng lugarRecogidad,
+    LatLng lugarDestino
+  );
+
 }

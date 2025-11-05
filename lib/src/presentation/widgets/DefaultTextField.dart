@@ -10,6 +10,7 @@ class DefaultTextField extends StatelessWidget {
   EdgeInsetsGeometry margin;
   String? Function(String?)? validate;
   Color? backgrooundColor;
+  TextInputType keyboardType;
 
   DefaultTextField({
     required this.text,
@@ -19,7 +20,8 @@ class DefaultTextField extends StatelessWidget {
     this.validate,
     this.backgrooundColor = Colors.white,
     this.initialValue,
-    
+    this.keyboardType = TextInputType.text,
+  
   });
 
   @override
@@ -39,6 +41,7 @@ class DefaultTextField extends StatelessWidget {
           onChanged(texto);
         },
         validator: validate,
+        keyboardType: keyboardType,
         initialValue: initialValue,
         decoration: InputDecoration(
           label: Text(text),

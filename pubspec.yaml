@@ -24,6 +24,8 @@ dependencies:
   geolocator: ^14.0.2
   google_places_flutter: ^2.1.0
   geocoding: ^4.0.0
+  # Para dibujar rutas en el mapa
+  flutter_polyline_points: ^3.1.0
 
 
 dev_dependencies:

@@ -58,15 +58,17 @@ class ProfileUpdateContent extends StatelessWidget {
         child: AspectRatio(
           aspectRatio: 1,
           child: ClipOval(
-            child:
-                states.imageFile != null
-                    ? Image.file(states.imageFile!, fit: BoxFit.cover)
-                    : FadeInImage.assetNetwork(
-                      image: user!.image!,
-                      placeholder: 'assets/img/user_image.png',
-                      fit: BoxFit.cover,
-                      fadeInDuration: Duration(milliseconds: 1),
-                    ),
+            child: states.imageFile != null
+                ? Image.file(states.imageFile!, fit: BoxFit.cover)
+                : (user?.image != null && user!.image!.isNotEmpty)
+                    ? FadeInImage.assetNetwork(
+                        image: user!.image!,
+                        placeholder: 'assets/img/user_image.png',
+                        fit: BoxFit.cover,
+                        fadeInDuration: Duration(milliseconds: 1),
+                      )
+                    : Image.asset('assets/img/user_image.png', fit: BoxFit.cover),
+
           ),
         ),
       ),

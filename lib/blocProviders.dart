@@ -3,14 +3,18 @@ import 'package:subeya/injection.dart';
 import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:subeya/src/domain/useCases/geolocator/GeolocatorUseCase.dart';
 import 'package:subeya/src/domain/useCases/users/UsersUseCase.dart';
+import 'package:subeya/src/presentation/bloc/bloc_drivers/bloc_drivers_home/DriversHomeBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_login/LoginBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_login/LoginEvent.dart';
 import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente/ClientMapaBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente_info/ClientMapaInfoBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_profile_info/profileInfoBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_profile_update/profileUpdateBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_register/RegisterBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_register/RegisterEvent.dart';
 import 'package:subeya/src/presentation/bloc/bloc_client_home/ClientHomeBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_roles/RolesBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_roles/RolesEvent.dart';
 
 List<BlocProvider> blocProviders = [
    
@@ -20,5 +24,10 @@ List<BlocProvider> blocProviders = [
    BlocProvider<ProfileInfoBloc>(create: (context) => ProfileInfoBloc(locator<Authusecases>())),
    BlocProvider<ProfileUpdateBloc>(create: (context) => ProfileUpdateBloc(locator<UsersUseCase>(), locator<Authusecases>())),
    BlocProvider<ClientMapaBloc>(create: (context) => ClientMapaBloc(locator<GeolocatorUseCase>())),
+   BlocProvider<ClientMapaInfoBloc>(create: (context) => ClientMapaInfoBloc(locator<GeolocatorUseCase>())),
+   BlocProvider<RolesBloc>(create: (context) => RolesBloc(locator<Authusecases>())..add(GetRolesList())),
+
+   BlocProvider<DriversHomeBloc>(create: (context) => DriversHomeBloc(locator<Authusecases>())),
+
 
 ];

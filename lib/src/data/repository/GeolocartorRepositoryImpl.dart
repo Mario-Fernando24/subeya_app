@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:subeya/src/data/api/ApiConfig.dart';
 import 'package:subeya/src/domain/models/PlaceMarkData.dart';
 import 'package:subeya/src/domain/repository/GeolocatorRepository.dart';
 import 'package:geocoding/geocoding.dart';
@@ -99,4 +101,39 @@ class Geolocartorrepositoryimpl implements GeolocatorRepository {
     }
 
   }
+  
+  // función para obtener las coordenadas de la polilínea entre dos puntos
+  @override
+Future<List<LatLng>> getPolylineCoordinates(LatLng lugarRecogida, LatLng lugarDestino) async {
+  // Lista donde se almacenarán las coordenadas de la ruta
+  List<LatLng> polylineCoordinates = [];
+
+  try {
+    // Solicitud a la API de Google Directions para obtener la ruta
+    final result = await PolylinePoints(apiKey: Apiconfig.ApiGoogleMap).getRouteBetweenCoordinatesV2(
+      request: RoutesApiRequest(
+        origin: PointLatLng(lugarRecogida.latitude, lugarRecogida.longitude),
+        destination: PointLatLng(lugarDestino.latitude, lugarDestino.longitude),
+        travelMode: TravelMode.driving, // 🚗 puedes cambiarlo: walking, bicycling, transit
+      ),
+    );
+
+    // Validamos si la respuesta contiene puntos de la ruta
+    if (result.primaryRoute?.polylinePoints case List<PointLatLng> points) {
+      for (var point in points) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      }
+
+      // Retornamos la lista de puntos de la ruta
+      return polylineCoordinates;
+    } else {
+      // Lanzamos una excepción si no se encuentra una ruta válida
+      throw Exception(result.errorMessage ?? 'No se encontró una ruta válida.');
+    }
+  } catch (e) {
+    // En caso de error (por ejemplo, problemas con la conexión o API)
+    throw Exception('Error obteniendo la ruta: $e');
+  }
+}
+
 }
