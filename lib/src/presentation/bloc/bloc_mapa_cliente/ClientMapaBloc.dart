@@ -15,9 +15,9 @@ class ClientMapaBloc extends Bloc<ClientMapaEvent, ClientMapaState> {
 
   ClientMapaBloc(this.geolocatorUseCase) : super(ClientMapaState()) {
     on<ClientMapInicializarEvento>((event, emit) {
-      // Controlador del mapa (permite mover la cámara, añadir marcadores, etc.)
-  final Completer<GoogleMapController> controller = Completer<GoogleMapController>();
-      emit(state.copyWith(controller: controller));
+        // Controlador del mapa (permite mover la cámara, añadir marcadores, etc.)
+        final Completer<GoogleMapController> controller = Completer<GoogleMapController>();
+         emit(state.copyWith(controller: controller));
     });
 
     on<FindPosition>((event, emit) async {
