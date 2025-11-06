@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subeya/main.dart';
 import 'package:subeya/src/presentation/bloc/bloc_drivers/bloc_drivers_home/DriversHomeBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_drivers/bloc_drivers_home/DriversHomeState.dart';
-import 'package:subeya/src/presentation/pages/client/mapBuscador/mapBuscadorPage.dart';
+import 'package:subeya/src/presentation/pages/driver/mapViaje/mapLocationDriversPage.dart';
 import 'package:subeya/src/presentation/pages/profile/info/profileInfoPage.dart';
 import 'package:subeya/src/presentation/pages/roles/rolesItems.dart';
 import 'package:subeya/src/presentation/themes/app_colors.dart';
@@ -20,7 +20,7 @@ class DriveHomePage extends StatefulWidget {
 
 class _DriveHomePageState extends State<DriveHomePage> {
   List<Widget> pageList = [
-    ClientMapBuscador(),
+    MapLocationsDriversPage(),
     ProfileInfoPage(),
     Rolesitems()
     ];
@@ -28,7 +28,7 @@ class _DriveHomePageState extends State<DriveHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Menu Principal')),
+      appBar: AppBar(title: Text('Conductor Subeya')),
       body: BlocBuilder<DriversHomeBloc, DriversHomeState>(
         builder: (context, state) {
           return pageList[state.pageIndex];
@@ -60,7 +60,7 @@ class _DriveHomePageState extends State<DriveHomePage> {
                 ),
                  ListTile(
                   leading: Icon(Icons.person, color: AppColors.black),
-                  title: Text('Mapa de viajes', style: AppTextStyles.subtitle,),
+                  title: Text('Mapa de localizacón', style: AppTextStyles.subtitle,),
                   selected: state.pageIndex == 0,
                   onTap: () {
                     context.read<DriversHomeBloc>().add(

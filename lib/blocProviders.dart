@@ -4,6 +4,7 @@ import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:subeya/src/domain/useCases/geolocator/GeolocatorUseCase.dart';
 import 'package:subeya/src/domain/useCases/users/UsersUseCase.dart';
 import 'package:subeya/src/presentation/bloc/bloc_drivers/bloc_drivers_home/DriversHomeBloc.dart';
+import 'package:subeya/src/presentation/bloc/bloc_drivers/bloc_locations_drivers/DriversLocationsMapaBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_login/LoginBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_login/LoginEvent.dart';
 import 'package:subeya/src/presentation/bloc/bloc_mapa_cliente/ClientMapaBloc.dart';
@@ -29,5 +30,6 @@ List<BlocProvider> blocProviders = [
 
    BlocProvider<DriversHomeBloc>(create: (context) => DriversHomeBloc(locator<Authusecases>())),
 
+   BlocProvider<DriversLocationsMapaBloc>(create: (context) => DriversLocationsMapaBloc(locator<GeolocatorUseCase>())),
 
 ];
