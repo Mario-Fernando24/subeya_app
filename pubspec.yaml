@@ -1,7 +1,7 @@
 name: subeya
 description: "A new Flutter project."
 
-version: 1.0.0+1
+version: 1.0.3+1
 
 environment:
   # Alineado con Dart 3.9 (Flutter 3.35.x)
