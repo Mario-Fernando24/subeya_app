@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:subeya/src/presentation/bloc/bloc_drivers/bloc_locations_drivers/DriversLocationsMapaBloc.dart';
@@ -37,6 +38,18 @@ class _MapLocationsDriversPageState extends State<MapLocationsDriversPage> {
   }
 
   @override
+  void dispose() {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      // la condicion mounted es para evitar errores si la página ya no está en pantalla
+      if(mounted){
+        context.read<DriversLocationsMapaBloc>().add(StopLocationsPositionStreamDriversEvent());
+      }
+    }); 
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<DriversLocationsMapaBloc, DriversLocationsMapaState>(
@@ -50,10 +63,9 @@ class _MapLocationsDriversPageState extends State<MapLocationsDriversPage> {
                 margin: EdgeInsets.only(bottom: 30),
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: DefaultButton(
-                  onPressed: (){
-
-                  },
-                  text: 'ACTIVAR LOCALIZACIÓN',
+                  margin: EdgeInsets.only(top: 20),
+                  onPressed: ()=> context.read<DriversLocationsMapaBloc>().add(StopLocationsPositionStreamDriversEvent()),
+                  text: 'DETENER LOCALIZACIÓN',
                   ),
               )
             ],

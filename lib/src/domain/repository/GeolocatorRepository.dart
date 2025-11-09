@@ -25,4 +25,7 @@ abstract class GeolocatorRepository {
     LatLng lugarDestino
   );
 
+  // para obtener actualizaciones continuas de la posición del dispositivo
+  Stream<Position> getPositionStream();
+
 }

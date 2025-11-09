@@ -136,4 +136,15 @@ Future<List<LatLng>> getPolylineCoordinates(LatLng lugarRecogida, LatLng lugarDe
   }
 }
 
+  @override
+  Stream<Position> getPositionStream() {
+    LocationSettings locationSettings = LocationSettings(
+      // Configuración para la precisión y frecuencia de las actualizaciones
+      accuracy: LocationAccuracy.best,
+      distanceFilter: 1, // Notificar cada 10 metros de cambio
+    );
+
+    return Geolocator.getPositionStream(locationSettings: locationSettings);
+  }
+
 }

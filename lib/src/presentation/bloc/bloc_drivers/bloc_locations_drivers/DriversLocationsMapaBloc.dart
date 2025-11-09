@@ -9,7 +9,7 @@ import 'package:subeya/src/presentation/bloc/bloc_drivers/bloc_locations_drivers
 
 class DriversLocationsMapaBloc extends Bloc<DriversLocationsMapaEvent, DriversLocationsMapaState> {
   GeolocatorUseCase geolocatorUseCase;
-  
+  StreamSubscription ? positionSubscription;
 
   DriversLocationsMapaBloc(this.geolocatorUseCase) : super(DriversLocationsMapaState()) {
     on<DriversMapInicializarEvento>((event, emit) {
@@ -20,24 +20,39 @@ class DriversLocationsMapaBloc extends Bloc<DriversLocationsMapaEvent, DriversLo
 
     on<FindPositionDrivers>((event, emit) async {
       Position position = await geolocatorUseCase.findPositionUsecase.run();
+      // mover la cámara a la posición actual
       add(ChangeMapCameraPosition(lat: position.latitude, lng: position.longitude));
-
-
-      BitmapDescriptor descriptor = await geolocatorUseCase.createmarketUsecase.run('assets/img/car_pin.png');
-
-      Marker marker = await geolocatorUseCase.getMarkerUsecase.run(
-        'MyLocationnS',position.latitude, position.longitude,'Mi posición','',descriptor
-      );
-
-      emit(
-        state.copyWith(
-         position: position,
-         markers: { marker.markerId: marker } ,
-        //  controller: controller,
-       )
-      );
-
+      // añadir marcador de la posición actual
+      add(AddMyPositionMarkerDriversEvent(latitud: position.latitude, longitud: position.longitude));
+      Stream<Position> positionStream = geolocatorUseCase.getPositionsStreamsUsecase.run();
+        // escuchar el stream de posiciones
+        positionSubscription = positionStream.listen((Position position) {
+           add(UpdateLocationsPositionStreamDriversEvent(position: position));
+        });      
+       // actualizar el estado con la nueva posición
+        emit(
+          state.copyWith(
+            position: position
+         ));  
+           
     });
+    
+    on<AddMyPositionMarkerDriversEvent>((event, emit) async {
+      BitmapDescriptor descriptor = await geolocatorUseCase.createmarketUsecase.run('assets/img/car_pin.png');
+      // crear el marcador de la posición actual
+      Marker marker = await geolocatorUseCase.getMarkerUsecase.run(
+        'MyLocationnS',event.latitud, event.longitud,'Mi posición','',descriptor
+      );
+        // ✅ Clonamos los marcadores actuales y actualizamos la posición
+          final updatedMarkers = Map<MarkerId, Marker>.from(state.markers);
+          updatedMarkers[marker.markerId] = marker;
+
+          emit(
+            state.copyWith(
+              markers: updatedMarkers,
+            ),
+          );
+        });
 
     on<ChangeMapCameraPosition>((event, emit) async {
       GoogleMapController contro = await state.controller!.future;
@@ -45,7 +60,7 @@ class DriversLocationsMapaBloc extends Bloc<DriversLocationsMapaEvent, DriversLo
         CameraUpdate.newCameraPosition(
           CameraPosition(
             target: LatLng(event.lat, event.lng),
-            zoom: 15,
+            zoom: 17,
             bearing: 0,
           ),
         ),
@@ -56,6 +71,24 @@ class DriversLocationsMapaBloc extends Bloc<DriversLocationsMapaEvent, DriversLo
       emit(state.copyWith(cameraPosition: event.cameraPosition));
     });
 
+    on<UpdateLocationsPositionStreamDriversEvent>((event, emit) async {
+      print('ciudad Nueva posición recibida: ${event.position.latitude}, ${event.position.longitude} ');
+      add(AddMyPositionMarkerDriversEvent(latitud: event.position.latitude, longitud: event.position.longitude));
+      add(ChangeMapCameraPosition(lat:  event.position.latitude, lng:  event.position.longitude));
+
+         emit(
+          state.copyWith(
+            position: event.position
+         ));
+      });  
+
+    // guardar la suscripción en el estado para poder cancelarla más tarde
+    on<StopLocationsPositionStreamDriversEvent>((event, emit) async {
+      positionSubscription?.cancel();
+  });
+
   }
+
+  
 
 }

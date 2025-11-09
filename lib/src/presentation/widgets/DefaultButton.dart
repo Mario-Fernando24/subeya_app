@@ -33,6 +33,7 @@ class DefaultButton extends StatelessWidget {
           ),
         child: Text(
           text,
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: textColor,
             fontSize: 18,
