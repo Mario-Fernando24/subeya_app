@@ -1,3 +1,4 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 abstract class  DriversLocationsMapaEvent {}
@@ -27,6 +28,31 @@ class CameraPositionChangedDriversEvent extends DriversLocationsMapaEvent{
   });
   
 }
+
+class UpdateLocationsPositionStreamDriversEvent extends DriversLocationsMapaEvent{
+    
+    final Position position;
+
+    UpdateLocationsPositionStreamDriversEvent({
+      required this.position
+    });
+
+}
+
+class StopLocationsPositionStreamDriversEvent extends DriversLocationsMapaEvent{}
+
+class AddMyPositionMarkerDriversEvent extends DriversLocationsMapaEvent{
+  
+  final double latitud;
+  final double longitud;
+
+  AddMyPositionMarkerDriversEvent({
+    required this.latitud,
+    required this.longitud
+  });
+  
+}
+
 
  
 
