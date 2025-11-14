@@ -11,6 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:socket_io_client/socket_io_client.dart' as _i414;
 import 'package:subeya/src/data/dataSource/local/sharefPref.dart' as _i234;
 import 'package:subeya/src/data/dataSource/remote/services/AuthServices.dart'
     as _i382;
@@ -20,10 +21,12 @@ import 'package:subeya/src/di/AppModule.dart' as _i958;
 import 'package:subeya/src/domain/repository/AuthRepository.dart' as _i594;
 import 'package:subeya/src/domain/repository/GeolocatorRepository.dart'
     as _i204;
+import 'package:subeya/src/domain/repository/SocketRepository.dart' as _i187;
 import 'package:subeya/src/domain/repository/UserRepository.dart' as _i960;
 import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart' as _i161;
 import 'package:subeya/src/domain/useCases/geolocator/GeolocatorUseCase.dart'
     as _i983;
+import 'package:subeya/src/domain/useCases/socket/socketUseCase.dart' as _i193;
 import 'package:subeya/src/domain/useCases/users/UsersUseCase.dart' as _i893;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -35,16 +38,19 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final appModule = _$AppModule();
     gh.factory<_i234.Sharefpref>(() => appModule.sharefpref);
+    gh.factory<_i414.Socket>(() => appModule.socket);
     gh.factoryAsync<String>(() => appModule.token);
     gh.factory<_i382.Authservices>(() => appModule.authservices);
     gh.factory<_i211.Userservice>(() => appModule.userservice);
     gh.factory<_i594.Authrepository>(() => appModule.authrepository);
     gh.factory<_i960.UserRepository>(() => appModule.userRepository);
+    gh.factory<_i187.Socketrepository>(() => appModule.sockerepostory);
     gh.factory<_i204.GeolocatorRepository>(
       () => appModule.geolocatorRepository,
     );
     gh.factory<_i161.Authusecases>(() => appModule.authusecases);
     gh.factory<_i893.UsersUseCase>(() => appModule.useCaseUse);
+    gh.factory<_i193.SocketUseCase>(() => appModule.socketUse);
     gh.factory<_i983.GeolocatorUseCase>(() => appModule.geolocatorUseCase);
     return this;
   }

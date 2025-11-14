@@ -53,6 +53,10 @@ class AddMyPositionMarkerDriversEvent extends DriversLocationsMapaEvent{
   
 }
 
+class ConnectSocketIo extends DriversLocationsMapaEvent{}
+
+class DesconnectSocketIo extends DriversLocationsMapaEvent{}
+
 
  
 

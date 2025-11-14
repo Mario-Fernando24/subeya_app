@@ -32,6 +32,8 @@ class _MapLocationsDriversPageState extends State<MapLocationsDriversPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<DriversLocationsMapaBloc>().add(DriversMapInicializarEvento());
       context.read<DriversLocationsMapaBloc>().add(FindPositionDrivers());
+      context.read<DriversLocationsMapaBloc>().add(ConnectSocketIo());
+
     });
     // TODO: implement initState
     super.initState();
@@ -42,8 +44,11 @@ class _MapLocationsDriversPageState extends State<MapLocationsDriversPage> {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       // la condicion mounted es para evitar errores si la página ya no está en pantalla
       if(mounted){
+        context.read<DriversLocationsMapaBloc>().add(DesconnectSocketIo());
         context.read<DriversLocationsMapaBloc>().add(StopLocationsPositionStreamDriversEvent());
       }
+      context.read<DriversLocationsMapaBloc>().add(DesconnectSocketIo());
+
     }); 
     // TODO: implement dispose
     super.dispose();
@@ -64,7 +69,10 @@ class _MapLocationsDriversPageState extends State<MapLocationsDriversPage> {
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: DefaultButton(
                   margin: EdgeInsets.only(top: 20),
-                  onPressed: ()=> context.read<DriversLocationsMapaBloc>().add(StopLocationsPositionStreamDriversEvent()),
+                  onPressed: ()=> {
+                    context.read<DriversLocationsMapaBloc>().add(StopLocationsPositionStreamDriversEvent()),
+                    context.read<DriversLocationsMapaBloc>().add(DesconnectSocketIo())
+                  },
                   text: 'DETENER LOCALIZACIÓN',
                   ),
               )

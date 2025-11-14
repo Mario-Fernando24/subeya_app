@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subeya/injection.dart';
 import 'package:subeya/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:subeya/src/domain/useCases/geolocator/GeolocatorUseCase.dart';
+import 'package:subeya/src/domain/useCases/socket/socketUseCase.dart';
 import 'package:subeya/src/domain/useCases/users/UsersUseCase.dart';
 import 'package:subeya/src/presentation/bloc/bloc_drivers/bloc_drivers_home/DriversHomeBloc.dart';
 import 'package:subeya/src/presentation/bloc/bloc_drivers/bloc_locations_drivers/DriversLocationsMapaBloc.dart';
@@ -30,6 +31,6 @@ List<BlocProvider> blocProviders = [
 
    BlocProvider<DriversHomeBloc>(create: (context) => DriversHomeBloc(locator<Authusecases>())),
 
-   BlocProvider<DriversLocationsMapaBloc>(create: (context) => DriversLocationsMapaBloc(locator<GeolocatorUseCase>())),
+   BlocProvider<DriversLocationsMapaBloc>(create: (context) => DriversLocationsMapaBloc(locator<GeolocatorUseCase>(),locator<SocketUseCase>())),
 
 ];

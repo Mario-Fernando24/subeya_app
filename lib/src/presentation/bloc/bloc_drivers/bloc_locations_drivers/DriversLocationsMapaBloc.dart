@@ -3,15 +3,19 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 import 'package:subeya/src/domain/useCases/geolocator/GeolocatorUseCase.dart';
+import 'package:subeya/src/domain/useCases/socket/socketUseCase.dart';
 import 'package:subeya/src/presentation/bloc/bloc_drivers/bloc_locations_drivers/DriversLocationsMapaEvent.dart';
 import 'package:subeya/src/presentation/bloc/bloc_drivers/bloc_locations_drivers/DriversLocationsMapaState.dart';
 
 class DriversLocationsMapaBloc extends Bloc<DriversLocationsMapaEvent, DriversLocationsMapaState> {
+
   GeolocatorUseCase geolocatorUseCase;
   StreamSubscription ? positionSubscription;
+  SocketUseCase socketUseCase;
 
-  DriversLocationsMapaBloc(this.geolocatorUseCase) : super(DriversLocationsMapaState()) {
+  DriversLocationsMapaBloc(this.geolocatorUseCase, this.socketUseCase) : super(DriversLocationsMapaState()) {
     on<DriversMapInicializarEvento>((event, emit) {
       // Controlador del mapa (permite mover la cámara, añadir marcadores, etc.)
   final Completer<GoogleMapController> controller = Completer<GoogleMapController>();
@@ -87,7 +91,16 @@ class DriversLocationsMapaBloc extends Bloc<DriversLocationsMapaEvent, DriversLo
       positionSubscription?.cancel();
   });
 
+  on<ConnectSocketIo>((event, emit) async {
+     socketUseCase.connect.run();
+  });
+
+  on<DesconnectSocketIo>((event, emit) async {
+    socketUseCase.disconnect.run();
+  }); 
+
   }
+
 
   
 
